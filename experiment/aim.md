@@ -1,1 +1,1 @@
-### Aim of the experiment
+This module explains how to build a 7 segment decoder.
