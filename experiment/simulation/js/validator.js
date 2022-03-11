@@ -1,5 +1,4 @@
 import { gates, testSimulation } from './gate.js';
-import { testSimulationFA } from './fa.js';
 
 
 export function decoderTest(Input0, Input1, Input2, Input3, Output0, Output1, Output2, Output3, Output4, Output5, Output6) {
@@ -118,7 +117,6 @@ export function fullAdderTest(Input0, Input1, CarryIn, CarryOut, SumOut) {
         const calculatedCarry = (input0.output && input1.output) || (aXorb && carryIn.output) ? 1 : 0;
 
         // simulate the circuit
-        testSimulation(gates_list);
         const sum = gates_list[SumOut].output ? 1 : 0;
         const carry = gates_list[CarryOut].output ? 1 : 0;
 

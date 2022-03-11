@@ -1,8 +1,10 @@
-1. Design the full adder circuit as given in the theory section. Save this full adder circuit so that it can later be imported as a black box, which takes 3 inputs (A, B, and C) and produces 2 outputs (Sum and Carry)
+1. Design the BCD to seven segment display decoder as given in the theory section. Save this circuit which takes four inputs D,C,B, A and produces 7 outputs a,b,c,d,e,f,g.
 
-2. Import Full Adder circuits designed in 1st part and construct a 4 BIT binary adder using 4 full adders. Given two 4 bit binary numbers a3a2a1a0 and b3b2b1b0, the circuit should output s3s2s1s0 and c-out which is the final carry. For circuit diagram, refer to the theory section
+2. The Seven segment display designed above can display digits from 0 to 9. Now design a circuit which can display hexadecimal numbers 0-9 and A-F. Start by making K-maps for a,b,c,d,e,f,g and use seven 4:1 / 8:1 multiplexers, each generating one output.
+Save this circuit with appropriate name.
 
-3. Design a 3 bit full subtractor using EX-OR, AND, OR and NOT gates. Given X, Y and Z, the circuit should output D (difference) and B (Borrow). D = X (ex-or) Y (ex-or) Z and B = X'.Y + Y.Z + X'.Z
-
-4. Can the Final OR gate in the Full Adder circuit (given in the theory section) be replaced by an EX-OR gate ? If yes why? If no Why not?
-
+3. A 4-bit ripple adder has been made in Experiment 1. It takes two 4-bit numbers A3A2A1A0 and B3B2B1B0 as inputs and generates their sum S3S2S1S0 and final carry C-out.
+Save the 4-bit ripple adder by marking appropriate inputs and outputs.
+Import the seven segment hexadecimal display designed in question 2.
+Import the 4 bit ripple adder.
+Connect the outputs S3S2S1S0 of ripple adder to the inputs DCBA of 7 segment hexadecimal display. Give two 4-bit binary numbers as inputs to ripple adder and see if their sum is being displayed by the seven segment hexadecimal display. 

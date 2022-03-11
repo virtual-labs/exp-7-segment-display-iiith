@@ -1,1 +1,1 @@
-## Adder Circuit
+## Decoder with 7 segment display
