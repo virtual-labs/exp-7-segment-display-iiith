@@ -1,6 +1,6 @@
 import { registerGate } from "./main.js";
 import { setPosition } from "./layout.js";
-import { decoderTest } from "./validator.js";
+import { decoderTest, displayTest } from "./validator.js";
 import {jsPlumbInstance} from "./main.js";
 
 export let gates = {}; // Array of gates
@@ -179,7 +179,7 @@ export class Gate {
 
 
 
-function aDD(event) {
+function add_gate(event) {
     const type = event.target.innerHTML;
     const gate = new Gate(type);
     const component = gate.generateComponent();
@@ -188,7 +188,7 @@ function aDD(event) {
     gate.registerComponent("working-area");
 }
 
-window.Add = aDD;
+window.Add = add_gate;
 
 export function getResult(gate) {
     if (gate.output != null) {
@@ -302,6 +302,9 @@ export function submitCircuit() {
     document.getElementById("table-body").innerHTML = "";
     if (window.currentTab == "Task1") {
         decoderTest("Input-0", "Input-1", "Input-2", "Input-3", "Output-4", "Output-5", "Output-6", "Output-7", "Output-8", "Output-9", "Output-10");
+    }
+    else if (window.currentTab == "Task2") {
+        displayTest("Input-0", "Input-1", "Input-2", "Input-3");
     }
 }
 window.submitCircuit = submitCircuit;

@@ -1,6 +1,10 @@
 import * as gatejs from "./gate.js";
 import * as decoderjs from "./decoder.js";
 import * as displayjs from "./display.js";
+import {wireColours} from "./layout.js";
+
+
+let num_wires = 0;
 
 document.getScroll = function () {
     if (window.pageYOffset != undefined) {
@@ -27,7 +31,7 @@ export const jsPlumbInstance = jsPlumbBrowserUI.newInstance({
         containmentPadding: 5,
     },
     connector: "Flowchart",
-    paintStyle: { strokeWidth: 3, stroke: "#456" },
+    paintStyle: { strokeWidth: 4, stroke: "#888888" },
     connectionsDetachable: false,
 });
 
@@ -48,7 +52,9 @@ export const bindEvent1 = function () {
         } else if (start_uuid == "output" && end_uuid == "output") {
             return false;
         } else {
-            jsPlumbInstance.connect({ uuids: [endpoint.uuid, dropEndpoint.uuid] });
+            jsPlumbInstance.connect({ uuids: [endpoint.uuid, dropEndpoint.uuid], paintStyle:{ stroke: wireColours[num_wires], strokeWidth:4 }});
+            num_wires++;
+            num_wires = num_wires % wireColours.length;
 
             if (start_uuid == "output") {
                 let input = gatejs.gates[endpoint.elementId];
@@ -83,6 +89,8 @@ export const bindEvent2 = function () {
             return false;
         } else {
             jsPlumbInstance.connect({ uuids: [endpoint.uuid, dropEndpoint.uuid] });
+            num_wires++;
+            num_wires = num_wires % wireColours.length;
             const start_type = endpoint.elementId.split("-")[0];
             const end_type = dropEndpoint.elementId.split("-")[0];
             if (start_type == "Decoder" && end_type == "Display") {

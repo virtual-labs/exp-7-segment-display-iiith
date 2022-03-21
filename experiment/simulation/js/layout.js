@@ -2,6 +2,10 @@ import { simulate, deleteElement } from "./gate.js";
 import {bindEvent1, bindEvent2, unbindEvent, initDecoder, init7Segment, refreshWorkingArea} from "./main.js";
 import { simulateDecoder } from "./decoder.js";
 
+
+// Wires
+export const wireColours = ["#ff0000", "#00ff00", "#0000ff", "#ffff00", "#ff00ff", "#00ffff", "#ff8000", "#00ff80", "#80ff00", "#ff0080", "#8080ff", "#c0c0c0"];
+
 // Contextmenu
 const menu = document.querySelector(".menu");
 const menuOption = document.querySelector(".menu-option");

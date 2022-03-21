@@ -186,3 +186,38 @@ export function simulateDecoder() {
     // simulate display
     display.display();
 }
+
+
+export function testSimulationDecoder(decoder,display) {
+    decoder.clearOutputs();
+    display.clearInputs();
+
+    // generate and send output to display
+    getResultDecoder();
+
+    display.setInput(decoder.a, decoder.outputs.a);
+    display.setInput(decoder.b, decoder.outputs.b);
+    display.setInput(decoder.c, decoder.outputs.c);
+    display.setInput(decoder.d, decoder.outputs.d);
+    display.setInput(decoder.e, decoder.outputs.e);
+    display.setInput(decoder.f, decoder.outputs.f);
+    display.setInput(decoder.g, decoder.outputs.g);
+
+    let a = display.inputs.a;
+    let b = display.inputs.b;
+    let c = display.inputs.c;
+    let d = display.inputs.d;
+    let e = display.inputs.e;
+    let f = display.inputs.f;
+    let g = display.inputs.g;
+
+    return {
+        a: a,
+        b: b,
+        c: c,
+        d: d,
+        e: e,
+        f: f,
+        g: g
+    }
+}
