@@ -88,7 +88,7 @@ export const bindEvent2 = function () {
         } else if (start_uuid == "output" && end_uuid == "output") {
             return false;
         } else {
-            jsPlumbInstance.connect({ uuids: [endpoint.uuid, dropEndpoint.uuid] });
+            jsPlumbInstance.connect({ uuids: [endpoint.uuid, dropEndpoint.uuid], paintStyle:{ stroke: wireColours[num_wires], strokeWidth:4 }});
             num_wires++;
             num_wires = num_wires % wireColours.length;
             const start_type = endpoint.elementId.split("-")[0];
