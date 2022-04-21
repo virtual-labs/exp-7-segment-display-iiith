@@ -1,0 +1,131 @@
+body {
+  background: #fff;
+}
+
+.clear {
+  clear: both;
+}
+
+
+
+.display {
+  display: inline-block;
+  position: absolute;
+  width: 200px;
+  height: 300px;
+  border-radius: 0.75em;
+  background-color: black;
+  border: 0.2rem solid rgb(98, 178, 235);
+  padding-top: 7%;
+  padding-left: 5.5%;
+  z-index: 1;
+}
+
+@media screen and (max-width: 600px) {
+  .display {
+    width: 150px;
+    height: 250px;
+  }
+}
+
+.display-container {
+  position: relative;
+  float: left;
+  border-radius: 0.75em;
+}
+
+.display-container div.segment-x,
+.display-container div.segment-y {
+  position: absolute;
+}
+
+.display-container span.segment-border {
+  display: block;
+  position: absolute;
+}
+
+.display-container.display-size-12 {
+  width: 150px;
+  height: 250px;
+}
+
+.display-container.display-size-12 .segment-x {
+  width: 55%;
+  left: 9%;
+  border-bottom: 12px solid rgb(233, 9, 9);
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+}
+
+.display-container.display-size-12 .segment-x .segment-border {
+  top: 12px;
+  left: -12px;
+  right: -12px;
+  border-top: 12px solid rgb(233, 9, 9);
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+}
+
+.display-container.display-size-12 .segment-y {
+  height: 33%;
+  width: 0;
+  border-right: 12px solid rgb(233, 9, 9);
+  border-top: 12px solid transparent;
+  border-bottom: 12px solid transparent;
+}
+
+.display-container.display-size-12 .segment-y .segment-border {
+  position: relative;
+  left: 12px;
+  height: 140%;
+  margin-top: -12px;
+  border-left: 12px solid rgb(233, 9, 9);
+  border-top: 12px solid transparent;
+  border-bottom: 12px solid transparent;
+}
+
+.display-container.display-size-12 .segment-a {
+  top: 0;
+}
+
+.display-container.display-size-12 .segment-b {
+  top: 5.3%;
+  left: 57%;
+}
+
+.display-container.display-size-12 .segment-c {
+  top: 39%;
+  left: 57%;
+}
+
+.display-container.display-size-12 .segment-d {
+  top: 67.8%;
+}
+
+.display-container.display-size-12 .segment-e {
+  top: 39.2%;
+  left: 0px;
+}
+
+.display-container.display-size-12 .segment-f {
+  top: 5.3%;
+  left: 0px;
+}
+
+.display-container.display-size-12 .segment-g {
+  top: 34%;
+}
+
+.label-display {
+  color: white;
+}
+
+.segment-on {
+    opacity: 1;
+}
+
+.segment-off {
+    opacity: 0.1;
+}
+
+

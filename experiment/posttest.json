@@ -1,0 +1,59 @@
+{
+    "version": 2.0,
+    "questions": [
+        {
+            "question": "1. What is the output of 7 segment decoder when 1000 is the input",
+            "answers": {
+                "a": "3",
+                "b": "7",
+                "c": "8",
+                "d": "5"
+            },
+            "correctAnswer": "c",
+            "explanations": {},
+            "difficulty": "beginner"
+        },
+        {
+            "question": "2. What is the binary coding of 5",
+            "answers": {
+                "a": "0101",
+                "b": "0111",
+                "c": "0001",
+                "d": "0010"
+            },
+            "correctAnswer": "a",
+            "explanations": {
+                
+            },
+            "difficulty": "intermediate"
+        },
+        {
+            "question": "3. Where do you see a 7 segment decoder",
+            "answers": {
+                "a": "automatic washing machine",
+                "b": "calculator",
+                "c": "microwave",
+                "d": "All of these"
+            },
+            "correctAnswer": "d",
+            "explanations": {
+               
+            },
+            "difficulty": "intermediate"
+        },
+        {
+            "question": "4. How many bit combinations are wasted while making a 7 segment decoder",
+            "answers": {
+                "a": "7",
+                "b": "3",
+                "c": "4",
+                "d": "5"
+            },
+            "correctAnswer": "a",
+            "explanations": {
+                
+            },
+            "difficulty": "advanced"
+        }
+    ]
+}
