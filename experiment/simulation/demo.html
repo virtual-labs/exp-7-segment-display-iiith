@@ -18,42 +18,45 @@
 
 <body>
     <div class="container" style="margin-top: 1%;">
-        
+
         <div class="columns is-centered">
             <div class="column">
                 <div class="v-instruction-container instructions-box">
                     <div class="v-instruction-title" id="TaskTitle">7 Segment Decoder</div>
                     <div class="v-instruction-text" id="TaskDescription">
                         Simulation of a BCD to 7-segment decoder.
-                        <br>
+                        <p></p>
                     </div>
                     <div>
-                        <br>
-                        <p>Start- Starts the simulation after the inputs are properly selected. Default speed is 1x Select the speed through dropdown menu</p>
+                        <p></p>
+                        <p>Start- Starts the simulation after the inputs are properly selected. Default speed is 1x
+                            Select the speed through dropdown menu</p>
                         <p>Reset - Resets the simulation</p>
                         <p>
                             Click on the green input bits to set their values.
-                            <br>
+                        <p></p>
                         </p>
-                        <br>
-                        <p>Input1 is bit 1, Input2 is bit 2, Input3 is bit 3, Input4 is bit 4<br>
-                        Eg: 0111 in binary = 7 in decimal, so bit1 is 0, and the 1's are bits 2,3 and 4 <br>
-                    </p>
+                        <p></p>
+                        <p>Input1 is bit 1, Input2 is bit 2, Input3 is bit 3, Input4 is bit 4</p>
+                        <p>
+                            Eg: 0111 in binary = 7 in decimal, so bit1 is 0, and the 1's are bits 2,3 and 4 </p>
+                        <p>
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <br>
+    <p></p>
     <div class="columns is-centered">
         <div class="column is-one-quarter" style="margin:auto;text-align:center">
         </div>
         <div class="column" style="text-align: center">
             <div class="v-select">
-                <select  autocomplete="off" name="speed" onchange="SetSpeed(this.value)" id="speed">
-                  <option value="1" >1x</option>
-                  <option value="2">2x</option>
-                  <option value="4">4x</option>
+                <select autocomplete="off" name="speed" onchange="SetSpeed(this.value)" id="speed">
+                    <option value="1">1x</option>
+                    <option value="2">2x</option>
+                    <option value="4">4x</option>
                 </select>
             </div>
             <button class="v-button" id="play/pause" onclick="button()">Start</button>
@@ -83,7 +86,7 @@
                         <path id="inputpath4" fill="none" stroke="currentColor" stroke-width="3"
                             d="M 20 760 L 300 760 L 300 450 L 400 450 L 460 450 L 460 390" />
 
-                        
+
                         <path id="outputpath1" fill="none" stroke="currentColor" stroke-width="3"
                             d="M 460 390 L 500 390 L 500 315 L 700 315 L 760 315 L 760 390" />
                         <path id="outputpath2" fill="none" stroke="currentColor" stroke-width="3"
@@ -108,15 +111,15 @@
                             style="fill:green;stroke:rgb(68, 68, 119);stroke-width:3;fill-opacity:1;stroke-opacity:1" />
                         <circle id="input4" cx="20" cy="760" r="15" onclick="appendInput4()"
                             style="fill:green;stroke:rgb(68, 68, 119);stroke-width:3;fill-opacity:1;stroke-opacity:1" />
-                       
-                            <rect id="7segmentdecoder" class="component" x="400" y="300" width="120" height="180"
-                                style="fill:#29e;stroke-width:5;fill-opacity:1;stroke-opacity:1" />
-                            <text x="0" y="15" fill="black">
 
-                                <tspan x="400" y="350">BCD to 7</tspan>
-                                <tspan x="400" y="380"> Segment display</tspan>
-                            </text>
-                       
+                        <rect id="7segmentdecoder" class="component" x="400" y="300" width="120" height="180"
+                            style="fill:#29e;stroke-width:5;fill-opacity:1;stroke-opacity:1" />
+                        <text x="0" y="15" fill="black">
+
+                            <tspan x="400" y="350">BCD to 7</tspan>
+                            <tspan x="400" y="380"> Segment display</tspan>
+                        </text>
+
                         <text font-size="0.7em" x="04" y="45" fill="black">INPUT 1</text>
                         <text font-size="0.7em" x="04" y="350" fill="black">INPUT 2</text>
                         <text font-size="0.7em" x="04" y="435" fill="black">INPUT 3</text>
