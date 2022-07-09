@@ -88,15 +88,17 @@ function changeTabs(e) {
 
 window.changeTabs = changeTabs;
 
-function updateInstructions() {
-  if (window.currentTab === "task1") {
-    document.getElementById("TaskTitle").innerHTML = "Decoder";
-    document.getElementById("TaskDescription").innerHTML = 'Implement a BCD to 7-segment decoder using logic gates.';
+// Instruction box
+const updateInstructions = () => {
+  const task = window.currentTab;
+  const instructionBox = document.getElementById("instruction-title");
+  let title = ""; 
+  if (task === "task1") {
+    title = `Instructions<br>Implement a BCD to 7-segment decoder using logic gates`;
+  } else if (task === "task2") {
+    title = `Instructions<br>Test a BCD decoder with a 7-segment display`;
   }
-  else if (window.currentTab === "task2") {
-    document.getElementById("TaskTitle").innerHTML = "7 Segment Display";
-    document.getElementById("TaskDescription").innerHTML = 'Connect the 7-segment display to the decoder and observe the output.';
-  }
+  instructionBox.innerHTML = title;
 }
 
 // Toolbar
@@ -129,12 +131,6 @@ function clearObservations() {
   document.getElementById('result').innerHTML = "";
 
 }
-
-// Instruction box
-const instructionBox = document.getElementsByClassName("instructions-box")[0];
-instructionBox.addEventListener("click", (e) => {
-  instructionBox.classList.toggle("expand");
-});
 
 // Making webpage responsive
 
