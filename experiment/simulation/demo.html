@@ -51,7 +51,6 @@
             </div>
         </div>
     </div>
-    <p></p>
     <div class="columns is-centered">
         <div class="column">
             <select class="speed-box" autocomplete="off" name="speed" onchange="setSpeed(this.value)" id="speed">
@@ -59,8 +58,8 @@
                 <option value="2">2x</option>
                 <option value="4">4x</option>
             </select>
-            <button class="v-button" id="play/pause" onclick="button()">Start</button>
-            <button class="v-button" id="restart" onclick="RestartCircuit()">Reset</button>
+            <button class="v-button" id="play-or-pause" onclick="simulationStatus()">Start</button>
+            <button class="v-button" id="restart" onclick="restartCircuit()">Reset</button>
         </div>
     </div>
     <div class="columns is-centered is-flex is-flex-direction-row is-flex-wrap-wrap is-align-content-start">
@@ -71,55 +70,34 @@
                     <svg class="svg" xmlns="http://www.w3.org/2000/svg" width="100%" height="120%"
                         viewBox="0 0 1025 950 ">
 
-                        <path id="inputpath1" fill="none" stroke="currentColor" stroke-width="3"
-                            d="M 20 20 L 300 20 L 300 330 L 400 330 L 460 330 L 460 390" />
-
-                        <path id="inputpath2" fill="none" stroke="currentColor" stroke-width="3"
-                            d="M 20 370 L 400 370 L 430 370 L 430 390 L 460 390" />
-                        <path id="inputpath3" fill="none" stroke="currentColor" stroke-width="3"
-                            d="M 20 410 L 400 410 L 430 410 L 430 390 L 460 390" />
-                        <path id="inputpath4" fill="none" stroke="currentColor" stroke-width="3"
-                            d="M 20 760 L 300 760 L 300 450 L 400 450 L 460 450 L 460 390" />
-
-
-                        <path id="outputpath1" fill="none" stroke="currentColor" stroke-width="3"
-                            d="M 460 390 L 500 390 L 500 315 L 700 315 L 760 315 L 760 390" />
-                        <path id="outputpath2" fill="none" stroke="currentColor" stroke-width="3"
-                            d="M 460 390 L 500 390 L 500 340 L 700 340 L 730 340 L 730 390 L 760 390" />
-                        <path id="outputpath3" fill="none" stroke="currentColor" stroke-width="3"
-                            d="M 460 390 L 500 390 L 500 365 L 700 365 L 760 365 L 760 390" />
-                        <path id="outputpath4" fill="none" stroke="currentColor" stroke-width="3"
-                            d="M 460 390 L 500 390  L 700 390 L 760 390" />
-                        <path id="outputpath5" fill="none" stroke="currentColor" stroke-width="3"
-                            d="M 460 390 L 500 390 L 500 415 L 700 415 L 760 415 L 760 390" />
-                        <path id="outputpath6" fill="none" stroke="currentColor" stroke-width="3"
-                            d="M 460 390 L 500 390 L 500 440 L 700 440 L 730 440 L 730 390 L 760 390" />
-                        <path id="outputpath7" fill="none" stroke="currentColor" stroke-width="3"
-                            d="M 460 390 L 500 390 L 500 465 L 700 465 L 760 465 L 760 390" />
-                        <rect id="7segmentdecoderoutput" x="700" y="300" width="120" height="180"
-                            style="fill:black;stroke:rgb(95, 68, 68);stroke-width:5;fill-opacity:1;stroke-opacity:1" />
-                        <circle id="input1" cx="20" cy="20" r="15" onclick="appendInput1()"
-                            style="fill:green;stroke:rgb(68, 68, 119);stroke-width:3;fill-opacity:1;stroke-opacity:1" />
-                        <circle id="input2" cx="20" cy="370" r="15" onclick="appendInput2()"
-                            style="fill:green;stroke:rgb(68, 68, 119);stroke-width:3;fill-opacity:1;stroke-opacity:1" />
-                        <circle id="input3" cx="20" cy="410" r="15" onclick="appendInput3()"
-                            style="fill:green;stroke:rgb(68, 68, 119);stroke-width:3;fill-opacity:1;stroke-opacity:1" />
-                        <circle id="input4" cx="20" cy="760" r="15" onclick="appendInput4()"
-                            style="fill:green;stroke:rgb(68, 68, 119);stroke-width:3;fill-opacity:1;stroke-opacity:1" />
-
-                        <rect id="7segmentdecoder" class="component" x="400" y="300" width="120" height="180"
-                            style="fill:#29e;stroke-width:5;fill-opacity:1;stroke-opacity:1" />
-                        <text x="0" y="15" fill="black">
-
-                            <tspan x="400" y="350">BCD to 7</tspan>
-                            <tspan x="400" y="380"> Segment display</tspan>
+                        <path id="inputpath1" class="wire-demo" d="M 20 20 L 300 20 L 300 330 L 400 330 L 460 330 L 460 390" />
+                        <path id="inputpath2" class="wire-demo" d="M 20 370 L 400 370 L 430 370 L 430 390 L 460 390" />
+                        <path id="inputpath3" class="wire-demo" d="M 20 410 L 400 410 L 430 410 L 430 390 L 460 390" />
+                        <path id="inputpath4" class="wire-demo" d="M 20 760 L 300 760 L 300 450 L 400 450 L 460 450 L 460 390" />
+                        <path id="outputpath1" class="wire-demo" d="M 460 390 L 500 390 L 500 315 L 700 315 L 760 315 L 760 390" />
+                        <path id="outputpath2" class="wire-demo" d="M 460 390 L 500 390 L 500 340 L 700 340 L 730 340 L 730 390 L 760 390" />
+                        <path id="outputpath3" class="wire-demo" d="M 460 390 L 500 390 L 500 365 L 700 365 L 760 365 L 760 390" />
+                        <path id="outputpath4" class="wire-demo" d="M 460 390 L 500 390  L 700 390 L 760 390" />
+                        <path id="outputpath5" class="wire-demo" d="M 460 390 L 500 390 L 500 415 L 700 415 L 760 415 L 760 390" />
+                        <path id="outputpath6" class="wire-demo" d="M 460 390 L 500 390 L 500 440 L 700 440 L 730 440 L 730 390 L 760 390" />
+                        <path id="outputpath7" class="wire-demo" d="M 460 390 L 500 390 L 500 465 L 700 465 L 760 465 L 760 390" />
+                        <rect id="7segmentdecoderoutput" class="display-demo" x="700" y="300" width="120" height="180"/>
+                        <circle id="inputa" class="color-green" cx="20" cy="20" r="15" onclick="appendInputA()"/>
+                        <circle id="inputb" class="color-green" cx="20" cy="370" r="15" onclick="appendInputB()"/>
+                        <circle id="inputc" class="color-green" cx="20" cy="410" r="15" onclick="appendInputC()"/>
+                        <circle id="inputd" class="color-green" cx="20" cy="760" r="15" onclick="appendInputD()"/>
+                        <rect id="sevensegmentdecoder" class="decoder-demo component" x="400" y="300" width="120" height="180"/>
+                        <text class="text-demo" x="0" y="15">
+                            <tspan x="420" y="365">BCD to 7</tspan>
+                            <tspan x="420" y="395"> Segment</tspan>
+                            <tspan x="420" y="425"> display</tspan>
                         </text>
 
-                        <text font-size="0.7em" x="04" y="45" fill="black">INPUT 1</text>
-                        <text font-size="0.7em" x="04" y="350" fill="black">INPUT 2</text>
-                        <text font-size="0.7em" x="04" y="435" fill="black">INPUT 3</text>
-                        <text font-size="0.7em" x="04" y="735" fill="black">INPUT 4</text>
-                        <text font-size="2em" x="700" y="280" fill="black">OUTPUT</text>
+                        <text class="text-demo" x="-15" y="30">A</text>
+                        <text class="text-demo" x="-15" y="375">B</text>
+                        <text class="text-demo" x="-15" y="415">C</text>
+                        <text class="text-demo" x="-15" y="765">D</text>
+                        <text class="text-demo" x="720" y="280">OUTPUT</text>
 
 
                     </svg>
@@ -131,17 +109,13 @@
             <div class="v-datalist-container components-list">
                 <div class="v-datalist-title">Observations</div>
                 <div class="v-datalist-row">
-                    <div id="Observations">
-
-                    </div>
-                    <div id="result"></div>
+                    <div id="observations"></div>
                 </div>
-
             </div>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/gh/virtual-labs/virtual-style@0.0.8-b/js/script.js"></script>
-    <script src="js/animation.js"></script>
+    <script type="module" src="js/animation.js"></script>
 
 </body>
 

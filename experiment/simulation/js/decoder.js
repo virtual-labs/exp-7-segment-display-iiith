@@ -1,4 +1,4 @@
-import { gates } from './gate.js';
+import { clearResult, gates, printErrors } from './gate.js';
 import { registerGate } from "./main.js";
 import { display } from './display.js';
 
@@ -141,36 +141,31 @@ function getResultDecoder() {
 }
 
 function checkConnections() {
-
-    let correctConnection = true;
+    const id = document.getElementById(decoder.id);
     if (decoder.aIn == null || decoder.bIn == null || decoder.cIn == null || decoder.dIn == null) {
-        correctConnection = false;
+        printErrors("Input points of the Decoder are not connected properly\n",id);
+        return false;
     }
     if (decoder.a == null || decoder.b == null || decoder.c == null || decoder.d == null || decoder.e == null || decoder.f == null || decoder.g == null) {
-        correctConnection = false;
+        printErrors("Output points of the Decoder are not connected properly\n",id);
+        return false;
     }
     for (let gateId in gates) {
         const gate = gates[gateId];
         if (gate.isInput) {
             if (!gate.isConnected) {
-                correctConnection = false;
-                break;
+                return false;
             }
         }
     }
 
-    if (correctConnection) {
-        return true;
-    }
-    else {
-        alert("Connections are not correct");
-        return false;
-    }
+    return true;
 
 
 }
 
 export function simulateDecoder() {
+    clearResult();
     if (!checkConnections()) {
         return;
     }
@@ -196,6 +191,10 @@ export function simulateDecoder() {
 
 
 export function testSimulationDecoder(decoder, display) {
+    if (!checkConnections()) {
+        document.getElementById("table-body").innerHTML = "";
+        return false;
+    }
     decoder.clearOutputs();
     display.clearInputs();
 

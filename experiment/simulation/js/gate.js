@@ -200,28 +200,41 @@ function setInput(event) {
 
 window.setInput = setInput;
 
-export function checkConnections() {
-    let correctConnection = true;
-    for (let gateId in gates) {
-        const gate = gates[gateId];
-        if (gate.inputPoints.length != gate.inputs.length) {
-            correctConnection = false;
-        }
-        else if (!gate.isConnected && !gate.isOutput) {
-            correctConnection = false;
-        }
-    }
-    if (correctConnection) {
-        return true;
-    }
-    else {
-        alert("Connections are not correct");
-        return false;
+export function clearResult() {
+    const result = document.getElementById("result");
+    result.innerHTML = "";
+}
+
+export function printErrors(message,objectId) {
+    const result = document.getElementById('result');
+    result.innerHTML += message;
+    result.className = "failure-message";
+    if(objectId !== null)
+    {
+        objectId.classList.add("highlight")
+        setTimeout(function () {objectId.classList.remove("highlight")}, 5000);
     }
 }
 
-export function simulate() {
+// Check if the connections are correct
+export function checkConnections() {
+    for (let gateId in gates) {
+        const gate = gates[gateId];
+        const id = document.getElementById(gate.id);
+        if (gate.inputPoints.length != gate.inputs.length) {
+            printErrors("Highlighted component not connected properly\n",id);
+            return false;
+        } else if (gate.isConnected === false && gate.isOutput === false) {
+            printErrors("Highlighted component not connected properly\n",id);
+            return false;
+        }
+    }
+    return true;
+}
 
+// Simulate the circuit
+export function simulate() {
+    clearResult();
     if (!checkConnections()) {
         return;
     }
@@ -233,17 +246,15 @@ export function simulate() {
         }
     }
 
-
     for (let gateId in gates) {
         const gate = gates[gateId];
         if (gate.isOutput) {
             getResult(gate);
-            let element = document.getElementById(gate.id)
+            let element = document.getElementById(gate.id);
             if (gate.output) {
                 element.className = "high";
                 element.childNodes[0].innerHTML = "1";
-            }
-            else {
+            } else {
                 element.className = "low";
                 element.childNodes[0].innerHTML = "0";
             }
@@ -253,9 +264,11 @@ export function simulate() {
 
 window.simulate = simulate;
 
+// Simulate the circuit for given gates; Used for testing the circuit for all possible inputss
 export function testSimulation(gates) {
     if (!checkConnections()) {
-        return;
+        document.getElementById("table-body").innerHTML = "";
+        return false;
     }
 
     // reset output in gate
@@ -271,11 +284,12 @@ export function testSimulation(gates) {
             getResult(gate);
         }
     }
+    return true;
 }
 
 // function to submit the desired circuit and get the final success or failure message
 export function submitCircuit() {
-
+    clearResult();
     document.getElementById("table-body").innerHTML = "";
     if (window.currentTab === "task1") {
         decoderTest("Input-0", "Input-1", "Input-2", "Input-3", "Output-4", "Output-5", "Output-6", "Output-7", "Output-8", "Output-9", "Output-10");

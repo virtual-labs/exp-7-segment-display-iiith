@@ -1,3 +1,4 @@
+import { printErrors } from "./gate.js";
 import { registerGate } from "./main.js";
 'use strict';
 export let display = null;
@@ -57,9 +58,9 @@ class Display {
         let f = this.inputs.f;
         let g = this.inputs.g;
 
-
+        const el = document.getElementById(this.id);
         if(a == null || b==null || c==null || d==null || e==null || f==null || g==null) {
-            alert("Invalid connections");
+            printErrors("Input points of the Display are not connected properly\n",el);
             return;
         }
 

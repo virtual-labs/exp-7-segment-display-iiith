@@ -64,7 +64,9 @@ export function decoderTest(inputA, inputB, inputC, inputD, outputA, outputB, ou
         const g = aIn || computeAnd(bIn,!cIn) || computeAnd(bIn,!dIn) || computeAnd(!bIn,cIn) ? 1 : 0;
 
         // simulate the circuit
-        testSimulation(gates_list);
+        if(!testSimulation(gates_list)) {
+            return;
+        }
         const a0 = gates_list[outputA].output ? 1 : 0;
         const b0 = gates_list[outputB].output ? 1 : 0;
         const c0 = gates_list[outputC].output ? 1 : 0;
@@ -73,11 +75,16 @@ export function decoderTest(inputA, inputB, inputC, inputD, outputA, outputB, ou
         const f0 = gates_list[outputF].output ? 1 : 0;
         const g0 = gates_list[outputG].output ? 1 : 0;
 
-        dataTable += `<tr><th>${binary[3]}</th><th>${binary[2]}</th><th>${binary[1]}</th><th>${binary[0]}</th><td>${a0}</td><td>${b0}</td><td>${c0}</td><td>${d0}</td><td>${e0}</td><td>${f0}</td><td>${g0}</td></tr>`
-
+        
+        let className = "";
         if (a0 != a || b0 != b || c0 != c || d0 != d || e0 != e || f0 != f || g0 != g) {
             circuitIsCorrect = false;
+            className = "failure-table"
         }
+        else {
+            className = "success-table"
+        }
+        dataTable += `<tr class="bold-table"><th>${binary[3]}</th><th>${binary[2]}</th><th>${binary[1]}</th><th>${binary[0]}</th><td class="${className}">${a0}</td><td class="${className}">${b0}</td><td class="${className}">${c0}</td><td class="${className}">${d0}</td><td class="${className}">${e0}</td><td class="${className}">${f0}</td><td class="${className}">${g0}</td></tr>`
     }
 
     const table_elem = document.getElementById('table-body');
@@ -133,7 +140,12 @@ export function displayTest(inputA, inputB, inputC, inputD) {
         decoderElem.setC(input2);
         decoderElem.setD(input3);
 
-        const outputs = testSimulationDecoder(decoderElem,display_elem);
+        const val = testSimulationDecoder(decoderElem,display_elem);
+        if(val===false)
+        {
+            return;
+        }
+        const outputs = val;
 
         if (outputs.a != a || outputs.b != b || outputs.c != c || outputs.d != d || outputs.e != e || outputs.f != f || outputs.g != g) {
             circuitIsCorrect = false;
