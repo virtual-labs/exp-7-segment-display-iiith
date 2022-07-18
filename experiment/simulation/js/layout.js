@@ -30,10 +30,7 @@ export const setPosition = ({ top, left }) => {
 };
 
 window.addEventListener("click", e => {
-  if (menu.style.display != "none")
-  {
-    menu.style.display = "none";
-  }
+  menu.style.display = "none";
   window.selectedComponent = null;
   window.componentType = null;
 });

@@ -214,7 +214,7 @@ function outputSetter(){
     }
     if(ans>9){
         restartCircuit();
-        observ.innerHTML = "The value is greater than 9. Try with a value lesser than or equal to 9.";
+        observ.innerHTML = "The value is greater than 9. Try with a value less than or equal to 9.";
     }
     else{
         textOutput[0].textContent = ans;
