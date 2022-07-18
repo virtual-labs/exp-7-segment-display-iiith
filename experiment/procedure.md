@@ -1,5 +1,36 @@
-1. With The help of Theory Page , try to build the decoder.
-2. If You are unable to make it , load or export the circuit directly and use it.
-3. Analyze the values of a,b,c,d,e,f,g corresponding to the image given in theory page to see how different number are formed.
-4. There is an import feature, which lets you construct building blocks. Click on import and then click on circuit board to see the imported block. For more details, refer import section in manual.
+# BCD to 7-segment Decoder
+
+## Components Required - 
+
+* 5 NOT gates
+* 14 2-input NAND gates
+* 14 3-input NAND gates
+
+## Circuit Connections - 
+
+* With the help of the given diagram, try to connect the components in the circuit.
+<img src="images/bcd_decoder.gif">
+* After setting the values of A,B,C,and D click "Simulate". 
+
+## Observations - 
+
+* The values of a,b,c,d,e,f and g correspond to inputs A,B,C,D as described in the theory section.
+* If the circuit has been made as described as above, then upon clicking the "Submit" button a "Success" message will be displayed.
+
+# 7-segment Display
+
+## Components Required - 
+
+* 1 BCD to 7-segment Decoder
+* 1 7-segment Display
+
+## Circuit Connections - 
+
+* Connect the input points of the BCD to 7-segment Decoder with the input bits A,B,C, and D.
+* Connect the output points of the BCD to the input points of the 7-segment Display, with point 'a' in Decoder corresponding to point 'a' in Display, and so on.
+
+## Observations - 
+
+* The inputs A,B,C,D generate digits on the display as described in the theory section.
+* If the circuit has been made as described as above, then upon clicking the "Submit" button a "Success" message will be displayed.
 

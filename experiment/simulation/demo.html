@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/virtual-labs/virtual-style@0.0.8-b/css/style.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/MotionPathPlugin.min.js"></script>
+    <title>
+        7-Segment: Demo
+    </title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="columns is-centered">
+            <div class="column is-one-quarter v-instruction-title">
+                Tasks
+            </div>
+            <div class="column">
+                <div class="v-tabs">
+                    <ul>
+                        <li class="is-active" id="Task1">
+                            <a>
+                                7-Segment Display
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="columns is-centered">
+            <div class="column">
+                <div class="v-collapsible-instruction-container v-instruction-container">
+                    <div class="v-collapsible is-size-5">Instructions</div>
+                    <div class="v-content" style="text-align: left; padding-left: 10%; padding-right: 10%;">
+                        <ul style="list-style: disc;">
+                            <li><b>Start</b>- Starts the simulation after the inputs are properly selected. Default
+                                speed is 1x.</li>
+                            <li>Select the speed through dropdown menu</li>
+                            <li><b>Reset</b> - Resets the simulation</li>
+                            <li>Click on the green input bits to set their values.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="columns is-centered">
+        <div class="column">
+            <select class="speed-box" autocomplete="off" name="speed" onchange="setSpeed(this.value)" id="speed">
+                <option value="1" selected="selected">1x</option>
+                <option value="2">2x</option>
+                <option value="4">4x</option>
+            </select>
+            <button class="v-button" id="play-or-pause" onclick="simulationStatus()">Start</button>
+            <button class="v-button" id="restart" onclick="restartCircuit()">Reset</button>
+        </div>
+    </div>
+    <div class="columns is-centered is-flex-direction-row is-flex-wrap-wrap is-align-content-start">
+        <div class="column is-9-desktop is-12-tablet is-12-mobile">
+            <div id="circuit-board">
+                <div id="working-area">
+
+                    <svg class="svg" xmlns="http://www.w3.org/2000/svg" width="100%" height="120%"
+                        viewBox="0 0 1025 950 ">
+
+                        <path id="inputpath1" class="wire-demo" d="M 20 20 L 300 20 L 300 330 L 400 330 L 460 330 L 460 390" />
+                        <path id="inputpath2" class="wire-demo" d="M 20 370 L 400 370 L 430 370 L 430 390 L 460 390" />
+                        <path id="inputpath3" class="wire-demo" d="M 20 410 L 400 410 L 430 410 L 430 390 L 460 390" />
+                        <path id="inputpath4" class="wire-demo" d="M 20 760 L 300 760 L 300 450 L 400 450 L 460 450 L 460 390" />
+                        <path id="outputpath1" class="wire-demo" d="M 460 390 L 500 390 L 500 315 L 700 315 L 760 315 L 760 390" />
+                        <path id="outputpath2" class="wire-demo" d="M 460 390 L 500 390 L 500 340 L 700 340 L 730 340 L 730 390 L 760 390" />
+                        <path id="outputpath3" class="wire-demo" d="M 460 390 L 500 390 L 500 365 L 700 365 L 760 365 L 760 390" />
+                        <path id="outputpath4" class="wire-demo" d="M 460 390 L 500 390  L 700 390 L 760 390" />
+                        <path id="outputpath5" class="wire-demo" d="M 460 390 L 500 390 L 500 415 L 700 415 L 760 415 L 760 390" />
+                        <path id="outputpath6" class="wire-demo" d="M 460 390 L 500 390 L 500 440 L 700 440 L 730 440 L 730 390 L 760 390" />
+                        <path id="outputpath7" class="wire-demo" d="M 460 390 L 500 390 L 500 465 L 700 465 L 760 465 L 760 390" />
+                        <rect id="seven-segment-display" class="display-demo" x="700" y="300" width="120" height="180"/>
+                        <circle id="inputa" class="color-green" cx="20" cy="20" r="15" onclick="appendInputA()"/>
+                        <circle id="inputb" class="color-green" cx="20" cy="370" r="15" onclick="appendInputB()"/>
+                        <circle id="inputc" class="color-green" cx="20" cy="410" r="15" onclick="appendInputC()"/>
+                        <circle id="inputd" class="color-green" cx="20" cy="760" r="15" onclick="appendInputD()"/>
+                        <rect id="bcd-decoder" class="decoder-demo component" x="400" y="300" width="120" height="180"/>
+                        <text class="text-demo" x="0" y="15">
+                            <tspan x="420" y="365">BCD to 7</tspan>
+                            <tspan x="420" y="395"> Segment</tspan>
+                            <tspan x="420" y="425"> display</tspan>
+                        </text>
+
+                        <text class="text-demo" x="-15" y="30">A</text>
+                        <text class="text-demo" x="-15" y="375">B</text>
+                        <text class="text-demo" x="-15" y="415">C</text>
+                        <text class="text-demo" x="-15" y="765">D</text>
+                        <text class="text-demo" x="720" y="280">OUTPUT</text>
+
+
+                    </svg>
+
+                </div>
+            </div>
+        </div>
+        <div class="column is-3-desktop is-4-tablet is-12-mobile">
+            <div class="v-datalist-container components-list">
+                <div class="v-datalist-title">Observations</div>
+                <div class="v-datalist-row">
+                    <div id="observations"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/gh/virtual-labs/virtual-style@0.0.8-b/js/script.js"></script>
+    <script type="module" src="js/animation.js"></script>
+
+</body>
+
+
+</html>

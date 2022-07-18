@@ -1,0 +1,75 @@
+{
+    "version": 2.0,
+    "questions": [
+        {
+            "question": "1. What is the purpose of a 7 segment decoder ?",
+            "answers": {
+                "a": "To digitalise the numbers from 1 to 9",
+                "b": "To convert parallel input to serial input",
+                "c": "None",
+                "d": "Both of these"
+            },
+            "correctAnswer": "a",
+            "explanations": {
+               
+            },
+            "difficulty": "beginner"
+        },
+        {
+            "question": "2. Individual segments in a 7 segment decoder are placed",
+            "answers": {
+                "a": "clockwise",
+                "b": "anti-clockwise",
+                "c": "rndomly",
+                "d": "one below the other"
+            },
+            "correctAnswer": "c",
+            "explanations": {
+              
+            },
+            "difficulty": "beginner"
+        },
+        {
+            "question": "3. What are the 7 segments named in a 7 segment decoder",
+            "answers": {
+                "a": "a,b,c,d,e,e,g",
+                "b": "a,a,b,c,d,e,g",
+                "c": "a,b,c,d,e,f,g",
+                "d": "a,b,c,c,d,e,a"
+            },
+            "correctAnswer": "c",
+            "explanations": {
+                
+            },
+            "difficulty": "beginner"
+        },
+        {
+            "question": "4. What is the binary form of 7 ",
+            "answers": {
+                "a": "0111",
+                "b": "1011",
+                "c": "1100",
+                "d": "0110"
+            },
+            "correctAnswer": "a",
+            "explanations": {
+                
+            },
+            "difficulty": "intermediate"
+        },
+        {
+            "question": "5. What is the full form of BCD",
+            "answers": {
+                "a": "Binary comparater device",
+                "b": "Battery chargable device",
+                "c": "Binary coded decimal",
+                "d": "None of these"
+            },
+            "correctAnswer": "c",
+            "explanations": {
+                
+            },
+            "difficulty": "advanced"
+        }
+    ]
+}
