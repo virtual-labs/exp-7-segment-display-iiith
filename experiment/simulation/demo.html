@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<html>
 <html lang="en">
 
 <head>
@@ -62,7 +61,7 @@
             <button class="v-button" id="restart" onclick="restartCircuit()">Reset</button>
         </div>
     </div>
-    <div class="columns is-centered is-flex is-flex-direction-row is-flex-wrap-wrap is-align-content-start">
+    <div class="columns is-centered is-flex-direction-row is-flex-wrap-wrap is-align-content-start">
         <div class="column is-9-desktop is-12-tablet is-12-mobile">
             <div id="circuit-board">
                 <div id="working-area">
@@ -81,12 +80,12 @@
                         <path id="outputpath5" class="wire-demo" d="M 460 390 L 500 390 L 500 415 L 700 415 L 760 415 L 760 390" />
                         <path id="outputpath6" class="wire-demo" d="M 460 390 L 500 390 L 500 440 L 700 440 L 730 440 L 730 390 L 760 390" />
                         <path id="outputpath7" class="wire-demo" d="M 460 390 L 500 390 L 500 465 L 700 465 L 760 465 L 760 390" />
-                        <rect id="7segmentdecoderoutput" class="display-demo" x="700" y="300" width="120" height="180"/>
+                        <rect id="seven-segment-display" class="display-demo" x="700" y="300" width="120" height="180"/>
                         <circle id="inputa" class="color-green" cx="20" cy="20" r="15" onclick="appendInputA()"/>
                         <circle id="inputb" class="color-green" cx="20" cy="370" r="15" onclick="appendInputB()"/>
                         <circle id="inputc" class="color-green" cx="20" cy="410" r="15" onclick="appendInputC()"/>
                         <circle id="inputd" class="color-green" cx="20" cy="760" r="15" onclick="appendInputD()"/>
-                        <rect id="sevensegmentdecoder" class="decoder-demo component" x="400" y="300" width="120" height="180"/>
+                        <rect id="bcd-decoder" class="decoder-demo component" x="400" y="300" width="120" height="180"/>
                         <text class="text-demo" x="0" y="15">
                             <tspan x="420" y="365">BCD to 7</tspan>
                             <tspan x="420" y="395"> Segment</tspan>

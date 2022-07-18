@@ -16,7 +16,7 @@
             "difficulty": "beginner"
         },
         {
-            "question": "2. Induvidual segments in a 7 segment decoder are placed",
+            "question": "2. Individual segments in a 7 segment decoder are placed",
             "answers": {
                 "a": "clockwise",
                 "b": "anti-clockwise",

@@ -39,19 +39,19 @@
             "explanations": {
                
             },
-            "difficulty": "intermediate"
+            "difficulty": "beginner"
         },
         {
             "question": "4. How many bit combinations are wasted while making a 7 segment decoder",
             "answers": {
                 "a": "7",
-                "b": "3",
+                "b": "6",
                 "c": "4",
                 "d": "5"
             },
-            "correctAnswer": "a",
+            "correctAnswer": "b",
             "explanations": {
-                
+                "b": "6 bit combinations are wasted while making a 7 segment decoder as digit zero to digit 9 are covered from 0000 to 1001 in binary. So, the remaining so remaining combinations = 1111 - 1001 = 15 - 9 = 6."
             },
             "difficulty": "advanced"
         }

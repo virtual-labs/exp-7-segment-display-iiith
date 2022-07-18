@@ -23,7 +23,31 @@ class Display {
     }
 
     generateComponent() {
-        const component = `<div id=${this.id} class="display"> <div class="display-container display-size-12 display-no"> <div id=${this.id}-segment-a class="segment-x segment-a segment-off"><span class="segment-border"></span></div> <div id= ${this.id}-segment-b class="segment-y segment-b segment-off"><span class="segment-border"></span></div> <div id=${this.id}-segment-c +' class="segment-y segment-c segment-off"><span class="segment-border"></span></div> <div id= ${this.id}-segment-d class="segment-x segment-d segment-off"><span class="segment-border"></span></div> <div id= ${this.id}-segment-e class="segment-y segment-e segment-off"><span class="segment-border"></span></div> <div id= ${this.id}-segment-f class="segment-y segment-f segment-off"><span class="segment-border"></span></div> <div id= ${this.id}-segment-g class="segment-x segment-g segment-off"><span class="segment-border"></span></div> </div></div>`;
+        const component = `<div id=${this.id} class="display"> 
+                            <div class="display-container display-size-12 display-no"> 
+                                <div id=${this.id}-segment-a class="segment-x segment-a segment-off">
+                                    <span class="segment-border"></span>
+                                </div> 
+                                <div id= ${this.id}-segment-b class="segment-y segment-b segment-off">
+                                    <span class="segment-border"></span>
+                                </div> 
+                                <div id=${this.id}-segment-c +' class="segment-y segment-c segment-off">
+                                    <span class="segment-border"></span>
+                                </div> 
+                                <div id= ${this.id}-segment-d class="segment-x segment-d segment-off">
+                                    <span class="segment-border"></span>
+                                </div> 
+                                <div id= ${this.id}-segment-e class="segment-y segment-e segment-off">
+                                    <span class="segment-border"></span>
+                                </div> 
+                                <div id= ${this.id}-segment-f class="segment-y segment-f segment-off">
+                                    <span class="segment-border"></span>
+                                </div> 
+                                <div id= ${this.id}-segment-g class="segment-x segment-g segment-off">
+                                    <span class="segment-border"></span>
+                                </div>
+                            </div>
+                           </div>`;
         return component;
     }
 
@@ -64,67 +88,24 @@ class Display {
             return;
         }
 
-        if(a) {
-            document.getElementById(this.id + "-segment-a").classList.remove("segment-off");
-            document.getElementById(this.id + "-segment-a").classList.add("segment-on");
-        }
-        else {
-            document.getElementById(this.id + "-segment-a").classList.remove("segment-on");
-            document.getElementById(this.id + "-segment-a").classList.add("segment-off");
-        }
-
-        if(b) {
-            document.getElementById(this.id + "-segment-b").classList.remove("segment-off");
-            document.getElementById(this.id + "-segment-b").classList.add("segment-on");
-        }
-        else {
-            document.getElementById(this.id + "-segment-b").classList.remove("segment-on");
-            document.getElementById(this.id + "-segment-b").classList.add("segment-off");
+        const segments = {
+            "a": a,
+            "b": b,
+            "c": c,
+            "d": d,
+            "e": e,
+            "f": f,
+            "g": g 
         }
 
-        if(c) {
-            document.getElementById(this.id + "-segment-c").classList.remove("segment-off");
-            document.getElementById(this.id + "-segment-c").classList.add("segment-on");
-        }
-        else {
-            document.getElementById(this.id + "-segment-c").classList.remove("segment-on");
-            document.getElementById(this.id + "-segment-c").classList.add("segment-off");
-        }
-
-        if(d) {
-            document.getElementById(this.id + "-segment-d").classList.remove("segment-off");
-            document.getElementById(this.id + "-segment-d").classList.add("segment-on");
-        }
-        else {
-            document.getElementById(this.id + "-segment-d").classList.remove("segment-on");
-            document.getElementById(this.id + "-segment-d").classList.add("segment-off");
-        }
-
-        if(e) {
-            document.getElementById(this.id + "-segment-e").classList.remove("segment-off");
-            document.getElementById(this.id + "-segment-e").classList.add("segment-on");
-        }
-        else {
-            document.getElementById(this.id + "-segment-e").classList.remove("segment-on");
-            document.getElementById(this.id + "-segment-e").classList.add("segment-off");
-        }
-
-        if(f) {
-            document.getElementById(this.id + "-segment-f").classList.remove("segment-off");
-            document.getElementById(this.id + "-segment-f").classList.add("segment-on");
-        }
-        else {
-            document.getElementById(this.id + "-segment-f").classList.remove("segment-on");
-            document.getElementById(this.id + "-segment-f").classList.add("segment-off");
-        }
-
-        if(g) {
-            document.getElementById(this.id + "-segment-g").classList.remove("segment-off");
-            document.getElementById(this.id + "-segment-g").classList.add("segment-on");
-        }
-        else {
-            document.getElementById(this.id + "-segment-g").classList.remove("segment-on");
-            document.getElementById(this.id + "-segment-g").classList.add("segment-off");
+        for(let segment in segments) {
+            if(segments[segment])
+            {
+                switchOnSegment(this.id, segment);
+            }
+            else {
+                switchOffSegment(this.id, segment);
+            }
         }
     }
 
@@ -145,4 +126,13 @@ export function createDisplay(workingArea, x = 0, y = 0) {
     const parent = document.getElementById(workingArea);
     parent.insertAdjacentHTML('beforeend', component);
     display.registerComponent(workingArea, x, y);
+}
+
+
+function switchOnSegment(id, segment) {
+    document.getElementById(`${id}-segment-${segment}`).classList.replace("segment-off", "segment-on");
+}
+
+function switchOffSegment(id, segment) {
+    document.getElementById(`${id}-segment-${segment}`).classList.replace("segment-on", "segment-off");
 }

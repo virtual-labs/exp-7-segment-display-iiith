@@ -213,7 +213,8 @@ function outputSetter(){
         ans += parseInt(textInput[i].textContent)*Math.pow(2,3-i);
     }
     if(ans>9){
-        observ.innerHTML = "This value exceeds greater than 9. Try with a value smaller than 9.";
+        restartCircuit();
+        observ.innerHTML = "The value is greater than 9. Try with a value lesser than or equal to 9.";
     }
     else{
         textOutput[0].textContent = ans;

@@ -7,11 +7,6 @@ import { decoderTest, displayTest, computeAnd, computeOr, computeXor, computeXno
 export let gates = {}; // Array of gates
 window.numComponents = 0;
 export function clearGates() {
-
-    for (let gateId in gates) {
-        delete gates[gateId];
-    }
-
     gates = {};
 }
 
@@ -84,7 +79,7 @@ export class Gate {
         el.style.left = x + "px";
         el.style.top = y + "px";
 
-        if (this.type != "Input" && this.type != "Output") {
+        if (this.type !== "Input" && this.type !== "Output") {
 
             el.addEventListener(
                 "contextmenu",

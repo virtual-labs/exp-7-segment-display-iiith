@@ -30,7 +30,6 @@ body {
 
 .display-container {
   position: relative;
-  float: left;
   border-radius: 0.75em;
 }
 
