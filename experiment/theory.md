@@ -8,6 +8,7 @@
 <img width="150px" src="images/7_segment_display_labeled.png">  <img src="images/7-segments_Indicator.gif">
 
 **BCD to 7-segment Decoder**
+
 | A | B | C | D | a | b | c | d | e | f | g | Digit |
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | 0 | 0 |	0  | 	0  |1  |1  |1  |1  |1  |1  | 0  | 0  |
@@ -22,6 +23,7 @@
 | 1 | 0 | 	0  |	1  |1  |1  |1  |1  |0  |1  | 1  | 9  |
 
 **7 segment display**
+
 |Digit | Off Segments|
 |------|-------------|
 |0     |	g    |

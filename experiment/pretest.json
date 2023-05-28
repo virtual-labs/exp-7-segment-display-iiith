@@ -20,7 +20,7 @@
             "answers": {
                 "a": "clockwise",
                 "b": "anti-clockwise",
-                "c": "rndomly",
+                "c": "randomly",
                 "d": "one below the other"
             },
             "correctAnswer": "c",
@@ -60,8 +60,8 @@
         {
             "question": "5. What is the full form of BCD",
             "answers": {
-                "a": "Binary comparater device",
-                "b": "Battery chargable device",
+                "a": "Binary comparator device",
+                "b": "Battery chargeable device",
                 "c": "Binary coded decimal",
                 "d": "None of these"
             },
