@@ -87,13 +87,26 @@ window.changeTabs = changeTabs;
 const updateInstructions = () => {
   const task = window.currentTab;
   const instructionBox = document.getElementById("instruction-title");
+  const delete_inst = document.getElementById("delete");
+  const truthtable_inst = document.getElementById("truth-table");
+  const components = document.getElementById("comp");
   let title = ""; 
+  let tt_inst="";
+  let del_ins = "";
+  let cmps = "";
   if (task === "task1") {
     title = `Instructions<br>Implement a BCD to 7-segment decoder using logic gates`;
+    del_ins = `<li>You can delete components by right clicking on them and selecting the delete option</li>`;
+    tt_inst = `<li>Clicking on 'Submit' will display a 'Success' or 'Failure' message in the Observations Section according to the correctness of your circuit. It will also display a Truth Table verifying your circuit for different input values.</li>`;
+    cmps = `<li>Click on components on the left side to add them to the circuit board.</li>`
   } else if (task === "task2") {
     title = `Instructions<br>Test a BCD decoder with a 7-segment display`;
+    tt_inst = `<li>Clicking on 'Submit' will display a 'Success' or 'Failure' message in the Observations Section according to the correctness of your circuit.</li>`;
   }
   instructionBox.innerHTML = title;
+  delete_inst.innerHTML = del_ins;
+  truthtable_inst.innerHTML = tt_inst;
+  components.innerHTML = cmps;
 }
 
 // Toolbar

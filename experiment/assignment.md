@@ -7,4 +7,4 @@ Save this circuit with appropriate name.
 Save the 4-bit ripple adder by marking appropriate inputs and outputs.
 Import the seven segment hexadecimal display designed in question 2.
 Import the 4 bit ripple adder.
-Connect the outputs S3S2S1S0 of ripple adder to the inputs DCBA of 7 segment hexadecimal display. Give two 4-bit binary numbers as inputs to ripple adder and see if their sum is being displayed by the seven segment hexadecimal display. 
+Connect the outputs S3S2S1S0 of ripple adder to the inputs ABCD of 7 segment hexadecimal display. Give two 4-bit binary numbers as inputs to ripple adder and see if their sum is being displayed by the seven segment hexadecimal display. 
