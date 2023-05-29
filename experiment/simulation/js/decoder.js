@@ -170,6 +170,18 @@ export function simulateDecoder() {
         return;
     }
 
+    // checking if input value is greater than 9
+    let A = decoder.aIn.output;
+    let B = decoder.bIn.output;
+    let C = decoder.cIn.output;
+    let D = decoder.dIn.output;
+
+    let input_val = D+(2*C)+(4*B)+(8*A);
+    if(input_val>9)
+    {
+        printErrors("Input value is greater than 9. Please try with an input value less than or equal to 9.\n");
+        return;
+    }
 
     decoder.clearOutputs();
     display.clearInputs();

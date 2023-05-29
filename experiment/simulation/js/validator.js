@@ -137,11 +137,6 @@ export function displayTest(inputA, inputB, inputC, inputD) {
         const f = aIn || computeAnd(bIn,!cIn) || computeAnd(bIn,!dIn) || computeNor(cIn,dIn) ? 1 : 0;
         const g = aIn || computeAnd(bIn,!cIn) || computeAnd(bIn,!dIn) || computeAnd(!bIn,cIn) ? 1 : 0;
 
-        decoderElem.setA(input0);
-        decoderElem.setB(input1);
-        decoderElem.setC(input2);
-        decoderElem.setD(input3);
-
         const val = testSimulationDecoder(decoderElem,display_elem);
         if(val===false)
         {
