@@ -1,6 +1,7 @@
 import { registerGate, jsPlumbInstance } from "./main.js";
 import { setPosition } from "./layout.js";
 import { decoderTest, displayTest, computeAnd, computeOr, computeXor, computeXnor, computeNand, computeNor } from "./validator.js";
+import { display } from "./display.js";
 
 'use strict';
 
@@ -286,6 +287,36 @@ export function testSimulation(gates) {
 export function submitCircuit() {
     clearResult();
     document.getElementById("table-body").innerHTML = "";
+
+    // Refresh the input bit values to default 1 and output bit values to default empty black circles after submitting
+      for (let gateId in gates) {
+        const gate = gates[gateId];
+        if (gate.isInput) {
+            gate.setOutput(true);
+            let element = document.getElementById(gate.id);
+            element.className = "high";
+            element.childNodes[0].innerHTML = "1";
+        }
+
+        if(window.currentTab === "task2")
+        {
+            let a = document.getElementById(display.id+"-segment-a");
+            a.className = "segment-x segment-a segment-off";
+            let b = document.getElementById(display.id+"-segment-b");
+            b.className = "segment-y segment-b segment-off";
+            let c = document.getElementById(display.id+"-segment-c");
+            c.className = "segment-y segment-c segment-off";
+            let d = document.getElementById(display.id+"-segment-d");
+            d.className = "segment-x segment-d segment-off";
+            let e = document.getElementById(display.id+"-segment-e");
+            e.className = "segment-y segment-e segment-off";
+            let f = document.getElementById(display.id+"-segment-f");
+            f.className = "segment-y segment-f segment-off";
+            let g = document.getElementById(display.id+"-segment-g");
+            g.className = "segment-x segment-g segment-off";
+        }
+    }
+
     if (window.currentTab === "task1") {
         decoderTest("Input-0", "Input-1", "Input-2", "Input-3", "Output-4", "Output-5", "Output-6", "Output-7", "Output-8", "Output-9", "Output-10");
     }
