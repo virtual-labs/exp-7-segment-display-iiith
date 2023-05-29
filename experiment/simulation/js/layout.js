@@ -126,16 +126,7 @@ function updateToolbar() {
 function clearObservations() {
 
   document.getElementById("table-body").innerHTML = "";
-  let head = ''
-
-  if (window.currentTab === "task1") {
-    head = '<tr><th colspan="4">Input</th><th colspan="8">Output</th></tr><tr><th>A</th><th>B</th><th>C</th><th>D</th><th>a</th><th>b</th><th>c</th><th>d</th><th>e</th><th>f</th><th>g</th></tr>'
-  }
-  else if (window.currentTab === "task2") {
-    head = ''
-  }
-
-  document.getElementById("table-head").innerHTML = head;
+  document.getElementById("table-head").innerHTML = "";
   document.getElementById('result').innerHTML = "";
 
 }

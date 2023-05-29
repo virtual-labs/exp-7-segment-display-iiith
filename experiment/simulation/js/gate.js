@@ -197,8 +197,17 @@ function setInput(event) {
 window.setInput = setInput;
 
 export function clearResult() {
+    // clear result
     const result = document.getElementById("result");
     result.innerHTML = "";
+
+    // clear table-body
+    const table_elem = document.getElementById("table-body");
+    table_elem.innerHTML = "";
+
+    // clear table-head
+    const table_elem_head = document.getElementById("table-head");
+    table_elem_head.innerHTML = "";
 }
 
 export function printErrors(message,objectId) {
@@ -286,7 +295,6 @@ export function testSimulation(gates) {
 // function to submit the desired circuit and get the final success or failure message
 export function submitCircuit() {
     clearResult();
-    document.getElementById("table-body").innerHTML = "";
 
     // Refresh the input bit values to default 1 and output bit values to default empty black circles after submitting
       for (let gateId in gates) {
@@ -297,6 +305,14 @@ export function submitCircuit() {
             element.className = "high";
             element.childNodes[0].innerHTML = "1";
         }
+
+        if(gate.isOutput) {
+            gate.setOutput(null);
+            let element = document.getElementById(gate.id);
+            element.className = "output";
+            element.childNodes[0].innerHTML = "";
+        }
+    }
 
         if(window.currentTab === "task2")
         {
@@ -315,9 +331,10 @@ export function submitCircuit() {
             let g = document.getElementById(display.id+"-segment-g");
             g.className = "segment-x segment-g segment-off";
         }
-    }
 
     if (window.currentTab === "task1") {
+        if(!checkConnections())
+        return;
         decoderTest("Input-0", "Input-1", "Input-2", "Input-3", "Output-4", "Output-5", "Output-6", "Output-7", "Output-8", "Output-9", "Output-10");
     }
     else if (window.currentTab === "task2") {

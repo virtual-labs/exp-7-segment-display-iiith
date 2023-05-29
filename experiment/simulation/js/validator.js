@@ -37,8 +37,10 @@ export function decoderTest(inputA, inputB, inputC, inputD, outputA, outputB, ou
     let circuitIsCorrect = true;
 
     let dataTable = ''
+    let head = '<tr><th colspan="4">Input</th><th colspan="8">Output</th></tr><tr><th>A</th><th>B</th><th>C</th><th>D</th><th>a</th><th>b</th><th>c</th><th>d</th><th>e</th><th>f</th><th>g</th></tr>';
+    document.getElementById("table-head").innerHTML = head;
 
-    for (let i = 0; i < 32; i++) {
+    for (let i = 0; i < 16; i++) {
         //convert i to binary
         let binary = i.toString(2).padStart(5, '0');
         binary = binary.split("").reverse().join("");
