@@ -37,7 +37,7 @@ export function decoderTest(inputA, inputB, inputC, inputD, outputA, outputB, ou
     let circuitIsCorrect = true;
 
     let dataTable = ''
-    let head = '<tr><th colspan="4">Input</th><th colspan="8">Output</th></tr><tr><th>A</th><th>B</th><th>C</th><th>D</th><th>a</th><th>b</th><th>c</th><th>d</th><th>e</th><th>f</th><th>g</th></tr>';
+    let head = '<tr><th colspan="4">Input</th><th colspan="7">Expected Values</th><th colspan="8">Observed Values</th></tr><tr><th>A</th><th>B</th><th>C</th><th>D</th><th>a</th><th>b</th><th>c</th><th>d</th><th>e</th><th>f</th><th>g</th><th>a</th><th>b</th><th>c</th><th>d</th><th>e</th><th>f</th><th>g</th></tr>';
     document.getElementById("table-head").innerHTML = head;
 
     for (let i = 0; i < 16; i++) {
@@ -86,7 +86,8 @@ export function decoderTest(inputA, inputB, inputC, inputD, outputA, outputB, ou
         else {
             className = "success-table"
         }
-        dataTable += `<tr class="bold-table"><th>${binary[3]}</th><th>${binary[2]}</th><th>${binary[1]}</th><th>${binary[0]}</th><td class="${className}">${a0}</td><td class="${className}">${b0}</td><td class="${className}">${c0}</td><td class="${className}">${d0}</td><td class="${className}">${e0}</td><td class="${className}">${f0}</td><td class="${className}">${g0}</td></tr>`
+        dataTable += `<tr class="bold-table"><th>${binary[3]}</th><th>${binary[2]}</th><th>${binary[1]}</th><th>${binary[0]}</th><td>${a}</td><td>${b}</td><td>${c}</td><td>${d}</td><td>${e}</td><td>${f}</td><td>${g}</td>`
+        dataTable+=`<td class="${className}">${a0}</td><td class="${className}">${b0}</td><td class="${className}">${c0}</td><td class="${className}">${d0}</td><td class="${className}">${e0}</td><td class="${className}">${f0}</td><td class="${className}">${g0}</td></tr>`
     }
 
     const table_elem = document.getElementById('table-body');
