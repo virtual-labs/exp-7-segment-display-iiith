@@ -201,6 +201,13 @@ export function simulateDecoder() {
 
     // simulate display
     display.display();
+
+    // Displays message confirming Simulation completion
+    let message = "Simulation has finished";
+    const result = document.getElementById('result');
+    result.innerHTML += message;
+    result.className = "success-message";
+    setTimeout(clearResult, 2000);
 }
 
 
