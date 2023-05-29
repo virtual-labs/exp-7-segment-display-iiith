@@ -154,6 +154,8 @@ function checkConnections() {
         const gate = gates[gateId];
         if (gate.isInput) {
             if (!gate.isConnected) {
+                const input_id = document.getElementById(gate.id);
+                printErrors("Highlighted component not connected properly\n",input_id);
                 return false;
             }
         }

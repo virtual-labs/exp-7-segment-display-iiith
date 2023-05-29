@@ -64,10 +64,12 @@ export const connectGate = function () {
                 const input = gatejs.gates[fromEndpoint.elementId];
                 input.isConnected = true;
                 gatejs.gates[toEndpoint.elementId].addInput(input);
+                input.addOutput(gatejs.gates[toEndpoint.elementId]);
             } else if (end_uuid === "output") {
                 const input = gatejs.gates[toEndpoint.elementId];
                 input.isConnected = true;
                 gatejs.gates[fromEndpoint.elementId].addInput(input);
+                input.addOutput(gatejs.gates[fromEndpoint.elementId]);
             }
 
         }

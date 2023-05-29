@@ -21,6 +21,7 @@ export class Gate {
         this.inputPoints = [];
         this.outputPoints = [];
         this.inputs = []; // List of input gates
+        this.outputs = []; //List of output gates
         this.output = null; // Output value
         this.isInput = false;
         this.isOutput = false;
@@ -32,10 +33,22 @@ export class Gate {
     addInput(gate) {
         this.inputs.push(gate);
     }
+     addOutput(gate) {
+        this.outputs.push(gate);
+    }
     removeInput(gate) {
-        let index = this.inputs.indexOf(gate);
-        if (index > -1) {
-            this.inputs.splice(index, 1);
+        for (let i = this.inputs.length - 1; i >= 0; i--) {
+            if (this.inputs[i] === gate) {
+                this.inputs.splice(i, 1);
+            }
+        }
+    }
+    removeOutput(gate) {
+        // Find and remove all occurrences of gate
+        for (let i = this.outputs.length - 1; i >= 0; i--) {
+            if (this.outputs[i] === gate) {
+                this.outputs.splice(i, 1);
+            }
         }
     }
     updatePosition(id) {
@@ -353,6 +366,12 @@ export function deleteElement(gateid) {
         if (gates[elem].inputs.includes(gate)) {
             gates[elem].removeInput(gate);
         }
+
+        if(gates[elem].outputs.includes(gate)) {
+            gates[elem].removeOutput(gate);
+            if(gates[elem].isInput && gates[elem].outputs.length ==0)
+            gates[elem].setConnected(false);
+          }
     }
     delete gates[gateid];
 }
