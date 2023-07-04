@@ -1,13 +1,13 @@
 import * as gatejs from "./gate.js";
 import * as decoderjs from "./decoder.js";
 import * as displayjs from "./display.js";
-import {wireColours} from "./layout.js";
+import { wireColours } from "./layout.js";
 
 'use strict';
 
 let num_wires = 0;
 
-document.getScroll = function () {
+document.getScroll = function() {
     if (window.pageYOffset != undefined) {
         return [pageXOffset, pageYOffset];
     } else {
@@ -18,7 +18,7 @@ document.getScroll = function () {
         sy = r.scrollTop || b.scrollTop || 0;
         return [sx, sy];
     }
-}
+};
 const workingArea = document.getElementById("working-area");
 export const jsPlumbInstance = jsPlumbBrowserUI.newInstance({
     container: workingArea,
@@ -36,8 +36,8 @@ export const jsPlumbInstance = jsPlumbBrowserUI.newInstance({
     connectionsDetachable: false,
 });
 
-export const connectGate = function () {
-    jsPlumbInstance.bind("beforeDrop", function (data) {
+export const connectGate = function() {
+    jsPlumbInstance.bind("beforeDrop", function(data) {
         const fromEndpoint = data.connection.endpoints[0];
         const toEndpoint = data.dropEndpoint;
 
@@ -52,11 +52,11 @@ export const connectGate = function () {
             return false;
         } else if (start_uuid === "output" && end_uuid === "output") {
             return false;
-        } else if ((end_uuid==="input" && toEndpoint.connections.length > 0) || (start_uuid==="input" && fromEndpoint.connections.length>1)) {
+        } else if ((end_uuid === "input" && toEndpoint.connections.length > 0) || (start_uuid === "input" && fromEndpoint.connections.length > 1)) {
             // If it already has a connection, do not establish a new connection
             return false;
         } else {
-            jsPlumbInstance.connect({ uuids: [fromEndpoint.uuid, toEndpoint.uuid], paintStyle:{ stroke: wireColours[num_wires], strokeWidth:4 }});
+            jsPlumbInstance.connect({ uuids: [fromEndpoint.uuid, toEndpoint.uuid], paintStyle: { stroke: wireColours[num_wires], strokeWidth: 4 } });
             num_wires++;
             num_wires = num_wires % wireColours.length;
 
@@ -74,10 +74,10 @@ export const connectGate = function () {
 
         }
     });
-}
+};
 
-export const connectDecoderDisplay = function () {
-    jsPlumbInstance.bind("beforeDrop", function (data) {
+export const connectDecoderDisplay = function() {
+    jsPlumbInstance.bind("beforeDrop", function(data) {
         const fromEndpoint = data.connection.endpoints[0];
         const toEndpoint = data.dropEndpoint;
 
@@ -92,11 +92,11 @@ export const connectDecoderDisplay = function () {
             return false;
         } else if (start_uuid === "output" && end_uuid === "output") {
             return false;
-        } else if ((end_uuid==="input" && toEndpoint.connections.length > 0) || (start_uuid==="input" && fromEndpoint.connections.length>1)) {
+        } else if ((end_uuid === "input" && toEndpoint.connections.length > 0) || (start_uuid === "input" && fromEndpoint.connections.length > 1)) {
             // If it already has a connection, do not establish a new connection
             return false;
         } else {
-            jsPlumbInstance.connect({ uuids: [fromEndpoint.uuid, toEndpoint.uuid], paintStyle:{ stroke: wireColours[num_wires], strokeWidth:4 }});
+            jsPlumbInstance.connect({ uuids: [fromEndpoint.uuid, toEndpoint.uuid], paintStyle: { stroke: wireColours[num_wires], strokeWidth: 4 } });
             num_wires++;
             num_wires = num_wires % wireColours.length;
             const start_type = fromEndpoint.elementId.split("-")[0];
@@ -290,11 +290,11 @@ export const connectDecoderDisplay = function () {
             }
         }
     });
-}
+};
 
 export const unbindEvent = () => {
     jsPlumbInstance.unbind("beforeDrop");
-}
+};
 
 
 export function registerGate(id, gate) {
