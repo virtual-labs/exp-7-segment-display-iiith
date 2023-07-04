@@ -63,16 +63,15 @@ function changeTabs(e) {
     connectGate();
     refreshWorkingArea();
     initDecoder();
-    window.simulate = simulate
+    window.simulate = simulate;
   }
   else if (task === "task2") {
     connectDecoderDisplay();
     refreshWorkingArea();
     init7Segment();
-    window.simulate = simulateDecoder
+    window.simulate = simulateDecoder;
   }
-  else
-  {
+  else {
     console.log("Error: Unknown task");
   }
   updateInstructions();
@@ -87,24 +86,37 @@ window.changeTabs = changeTabs;
 const updateInstructions = () => {
   const task = window.currentTab;
   const instructionBox = document.getElementById("instruction-title");
-  let title = ""; 
+  const delete_inst = document.getElementById("delete");
+  const truthtable_inst = document.getElementById("truth-table");
+  const components = document.getElementById("comp");
+  let title = "";
+  let tt_inst = "";
+  let del_ins = "";
+  let cmps = "";
   if (task === "task1") {
     title = `Instructions<br>Implement a BCD to 7-segment decoder using logic gates`;
+    del_ins = `<li>You can delete components by right clicking on them and selecting the delete option</li>`;
+    tt_inst = `<li>Clicking on 'Submit' will display a 'Success' or 'Failure' message in the Observations Section according to the correctness of your circuit. It will also display a Truth Table verifying your circuit for different input values.</li>`;
+    cmps = `<li>Click on components on the left side to add them to the circuit board.</li>`;
   } else if (task === "task2") {
     title = `Instructions<br>Test a BCD decoder with a 7-segment display`;
+    tt_inst = `<li>Clicking on 'Submit' will display a 'Success' or 'Failure' message in the Observations Section according to the correctness of your circuit.</li>`;
   }
   instructionBox.innerHTML = title;
-}
+  delete_inst.innerHTML = del_ins;
+  truthtable_inst.innerHTML = tt_inst;
+  components.innerHTML = cmps;
+};
 
 // Toolbar
 
 function updateToolbar() {
   let elem = "";
   if (window.currentTab === "task1") {
-    elem = '<div class="component-button and" onclick="addGate(event)">AND</div><div class="component-button or" onclick="addGate(event)">OR</div><div class="component-button not" onclick="addGate(event)">NOT</div><div class="component-button nand" onclick="addGate(event)">NAND</div><div class="component-button nor" onclick="addGate(event)">NOR</div><div class="component-button xor" onclick="addGate(event)">XOR</div><div class="component-button xnor" onclick="addGate(event)">XNOR</div>'
+    elem = '<div class="component-button and" onclick="addGate(event)">AND</div><div class="component-button or" onclick="addGate(event)">OR</div><div class="component-button not" onclick="addGate(event)">NOT</div><div class="component-button nand" onclick="addGate(event)">NAND</div><div class="component-button nor" onclick="addGate(event)">NOR</div><div class="component-button xor" onclick="addGate(event)">XOR</div><div class="component-button xnor" onclick="addGate(event)">XNOR</div>';
   }
   else if (window.currentTab === "task2") {
-    elem = ''
+    elem = '';
   }
   document.getElementById("toolbar").innerHTML = elem;
 }
@@ -113,16 +125,7 @@ function updateToolbar() {
 function clearObservations() {
 
   document.getElementById("table-body").innerHTML = "";
-  let head = ''
-
-  if (window.currentTab === "task1") {
-    head = '<tr><th colspan="4">Input</th><th colspan="8">Output</th></tr><tr><th>A</th><th>B</th><th>C</th><th>D</th><th>a</th><th>b</th><th>c</th><th>d</th><th>e</th><th>f</th><th>g</th></tr>'
-  }
-  else if (window.currentTab === "task2") {
-    head = ''
-  }
-
-  document.getElementById("table-head").innerHTML = head;
+  document.getElementById("table-head").innerHTML = "";
   document.getElementById('result').innerHTML = "";
 
 }

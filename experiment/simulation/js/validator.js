@@ -36,9 +36,11 @@ export function decoderTest(inputA, inputB, inputC, inputD, outputA, outputB, ou
 
     let circuitIsCorrect = true;
 
-    let dataTable = ''
+    let dataTable = '';
+    let head = '<tr><th colspan="4">Input</th><th colspan="7">Expected Values</th><th colspan="8">Observed Values</th></tr><tr><th>A</th><th>B</th><th>C</th><th>D</th><th>a</th><th>b</th><th>c</th><th>d</th><th>e</th><th>f</th><th>g</th><th>a</th><th>b</th><th>c</th><th>d</th><th>e</th><th>f</th><th>g</th></tr>';
+    document.getElementById("table-head").innerHTML = head;
 
-    for (let i = 0; i < 32; i++) {
+    for (let i = 0; i < 16; i++) {
         //convert i to binary
         let binary = i.toString(2).padStart(5, '0');
         binary = binary.split("").reverse().join("");
@@ -55,16 +57,16 @@ export function decoderTest(inputA, inputB, inputC, inputD, outputA, outputB, ou
         const cIn = input2.output;
         const dIn = input3.output;
 
-        const a = computeOr(aIn, cIn) || computeAnd(dIn,bIn) || computeNor(dIn,bIn) ? 1 : 0;
-        const b = !bIn || computeNor(cIn,dIn) || computeAnd(cIn, dIn) ? 1 : 0;
+        const a = computeOr(aIn, cIn) || computeAnd(dIn, bIn) || computeNor(dIn, bIn) ? 1 : 0;
+        const b = !bIn || computeNor(cIn, dIn) || computeAnd(cIn, dIn) ? 1 : 0;
         const c = bIn || !cIn || dIn ? 1 : 0;
-        const d = aIn || computeNor(bIn,dIn) || computeAnd(!bIn,cIn) || computeAnd(cIn,!dIn) || (bIn && !cIn && dIn) ? 1 : 0;
-        const e = computeNor(bIn,dIn) || computeAnd(cIn,!dIn) ? 1 : 0;
-        const f = aIn || computeAnd(bIn,!cIn) || computeAnd(bIn,!dIn) || computeNor(cIn,dIn) ? 1 : 0;
-        const g = aIn || computeAnd(bIn,!cIn) || computeAnd(bIn,!dIn) || computeAnd(!bIn,cIn) ? 1 : 0;
+        const d = aIn || computeNor(bIn, dIn) || computeAnd(!bIn, cIn) || computeAnd(cIn, !dIn) || (bIn && !cIn && dIn) ? 1 : 0;
+        const e = computeNor(bIn, dIn) || computeAnd(cIn, !dIn) ? 1 : 0;
+        const f = aIn || computeAnd(bIn, !cIn) || computeAnd(bIn, !dIn) || computeNor(cIn, dIn) ? 1 : 0;
+        const g = aIn || computeAnd(bIn, !cIn) || computeAnd(bIn, !dIn) || computeAnd(!bIn, cIn) ? 1 : 0;
 
         // simulate the circuit
-        if(!testSimulation(gates_list)) {
+        if (!testSimulation(gates_list)) {
             return;
         }
         const a0 = gates_list[outputA].output ? 1 : 0;
@@ -75,16 +77,17 @@ export function decoderTest(inputA, inputB, inputC, inputD, outputA, outputB, ou
         const f0 = gates_list[outputF].output ? 1 : 0;
         const g0 = gates_list[outputG].output ? 1 : 0;
 
-        
+
         let className = "";
         if (a0 != a || b0 != b || c0 != c || d0 != d || e0 != e || f0 != f || g0 != g) {
             circuitIsCorrect = false;
-            className = "failure-table"
+            className = "failure-table";
         }
         else {
-            className = "success-table"
+            className = "success-table";
         }
-        dataTable += `<tr class="bold-table"><th>${binary[3]}</th><th>${binary[2]}</th><th>${binary[1]}</th><th>${binary[0]}</th><td class="${className}">${a0}</td><td class="${className}">${b0}</td><td class="${className}">${c0}</td><td class="${className}">${d0}</td><td class="${className}">${e0}</td><td class="${className}">${f0}</td><td class="${className}">${g0}</td></tr>`
+        dataTable += `<tr class="bold-table"><th>${binary[3]}</th><th>${binary[2]}</th><th>${binary[1]}</th><th>${binary[0]}</th><td>${a}</td><td>${b}</td><td>${c}</td><td>${d}</td><td>${e}</td><td>${f}</td><td>${g}</td>`;
+        dataTable += `<td class="${className}">${a0}</td><td class="${className}">${b0}</td><td class="${className}">${c0}</td><td class="${className}">${d0}</td><td class="${className}">${e0}</td><td class="${className}">${f0}</td><td class="${className}">${g0}</td></tr>`;
     }
 
     const table_elem = document.getElementById('table-body');
@@ -127,22 +130,16 @@ export function displayTest(inputA, inputB, inputC, inputD) {
         const cIn = input2.output;
         const dIn = input3.output;
 
-        const a = computeOr(aIn, cIn) || computeAnd(dIn,bIn) || computeNor(dIn,bIn) ? 1 : 0;
-        const b = !bIn || computeNor(cIn,dIn) || computeAnd(cIn, dIn) ? 1 : 0;
+        const a = computeOr(aIn, cIn) || computeAnd(dIn, bIn) || computeNor(dIn, bIn) ? 1 : 0;
+        const b = !bIn || computeNor(cIn, dIn) || computeAnd(cIn, dIn) ? 1 : 0;
         const c = bIn || !cIn || dIn ? 1 : 0;
-        const d = aIn || computeNor(bIn,dIn) || computeAnd(!bIn,cIn) || computeAnd(cIn,!dIn) || (bIn && !cIn && dIn) ? 1 : 0;
-        const e = computeNor(bIn,dIn) || computeAnd(cIn,!dIn) ? 1 : 0;
-        const f = aIn || computeAnd(bIn,!cIn) || computeAnd(bIn,!dIn) || computeNor(cIn,dIn) ? 1 : 0;
-        const g = aIn || computeAnd(bIn,!cIn) || computeAnd(bIn,!dIn) || computeAnd(!bIn,cIn) ? 1 : 0;
+        const d = aIn || computeNor(bIn, dIn) || computeAnd(!bIn, cIn) || computeAnd(cIn, !dIn) || (bIn && !cIn && dIn) ? 1 : 0;
+        const e = computeNor(bIn, dIn) || computeAnd(cIn, !dIn) ? 1 : 0;
+        const f = aIn || computeAnd(bIn, !cIn) || computeAnd(bIn, !dIn) || computeNor(cIn, dIn) ? 1 : 0;
+        const g = aIn || computeAnd(bIn, !cIn) || computeAnd(bIn, !dIn) || computeAnd(!bIn, cIn) ? 1 : 0;
 
-        decoderElem.setA(input0);
-        decoderElem.setB(input1);
-        decoderElem.setC(input2);
-        decoderElem.setD(input3);
-
-        const val = testSimulationDecoder(decoderElem,display_elem);
-        if(val===false)
-        {
+        const val = testSimulationDecoder(decoderElem, display_elem);
+        if (val === false) {
             return;
         }
         const outputs = val;

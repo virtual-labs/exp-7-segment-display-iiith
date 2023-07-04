@@ -1,6 +1,7 @@
 import { registerGate, jsPlumbInstance } from "./main.js";
 import { setPosition } from "./layout.js";
 import { decoderTest, displayTest, computeAnd, computeOr, computeXor, computeXnor, computeNand, computeNor } from "./validator.js";
+import { display } from "./display.js";
 
 'use strict';
 
@@ -20,6 +21,7 @@ export class Gate {
         this.inputPoints = [];
         this.outputPoints = [];
         this.inputs = []; // List of input gates
+        this.outputs = []; //List of output gates
         this.output = null; // Output value
         this.isInput = false;
         this.isOutput = false;
@@ -31,16 +33,28 @@ export class Gate {
     addInput(gate) {
         this.inputs.push(gate);
     }
+    addOutput(gate) {
+        this.outputs.push(gate);
+    }
     removeInput(gate) {
-        let index = this.inputs.indexOf(gate);
-        if (index > -1) {
-            this.inputs.splice(index, 1);
+        for (let i = this.inputs.length - 1; i >= 0; i--) {
+            if (this.inputs[i] === gate) {
+                this.inputs.splice(i, 1);
+            }
+        }
+    }
+    removeOutput(gate) {
+        // Find and remove all occurrences of gate
+        for (let i = this.outputs.length - 1; i >= 0; i--) {
+            if (this.outputs[i] === gate) {
+                this.outputs.splice(i, 1);
+            }
         }
     }
     updatePosition(id) {
-        this.positionY = window.scrollY + document.getElementById(id).getBoundingClientRect().top // Y
+        this.positionY = window.scrollY + document.getElementById(id).getBoundingClientRect().top; // Y
 
-        this.positionX = window.scrollX + document.getElementById(id).getBoundingClientRect().left // X
+        this.positionX = window.scrollX + document.getElementById(id).getBoundingClientRect().left; // X
     }
     setName(name) {
         this.name = name;
@@ -83,7 +97,7 @@ export class Gate {
 
             el.addEventListener(
                 "contextmenu",
-                function (ev) {
+                function(ev) {
                     ev.preventDefault();
                     const origin = {
                         left: ev.pageX - document.getScroll()[0],
@@ -196,18 +210,26 @@ function setInput(event) {
 window.setInput = setInput;
 
 export function clearResult() {
+    // clear result
     const result = document.getElementById("result");
     result.innerHTML = "";
+
+    // clear table-body
+    const table_elem = document.getElementById("table-body");
+    table_elem.innerHTML = "";
+
+    // clear table-head
+    const table_elem_head = document.getElementById("table-head");
+    table_elem_head.innerHTML = "";
 }
 
-export function printErrors(message,objectId) {
+export function printErrors(message, objectId) {
     const result = document.getElementById('result');
     result.innerHTML += message;
     result.className = "failure-message";
-    if(objectId !== null)
-    {
-        objectId.classList.add("highlight")
-        setTimeout(function () {objectId.classList.remove("highlight")}, 5000);
+    if (objectId !== null) {
+        objectId.classList.add("highlight");
+        setTimeout(function() { objectId.classList.remove("highlight"); }, 5000);
     }
 }
 
@@ -217,10 +239,10 @@ export function checkConnections() {
         const gate = gates[gateId];
         const id = document.getElementById(gate.id);
         if (gate.inputPoints.length != gate.inputs.length) {
-            printErrors("Highlighted component not connected properly\n",id);
+            printErrors("Highlighted component not connected properly\n", id);
             return false;
-        } else if (gate.isConnected === false && gate.isOutput === false) {
-            printErrors("Highlighted component not connected properly\n",id);
+        } else if ((gate.isConnected === false || gate.outputs.length === 0) && gate.isOutput === false) {
+            printErrors("Highlighted component not connected properly\n", id);
             return false;
         }
     }
@@ -255,6 +277,13 @@ export function simulate() {
             }
         }
     }
+
+    // Displays message confirming Simulation completion
+    let message = "Simulation has finished";
+    const result = document.getElementById('result');
+    result.innerHTML += message;
+    result.className = "success-message";
+    setTimeout(clearResult, 2000);
 }
 
 window.simulate = simulate;
@@ -285,12 +314,49 @@ export function testSimulation(gates) {
 // function to submit the desired circuit and get the final success or failure message
 export function submitCircuit() {
     clearResult();
-    document.getElementById("table-body").innerHTML = "";
+
+    if (window.currentTab === "task2") {
+        let a = document.getElementById(display.id + "-segment-a");
+        a.className = "segment-x segment-a segment-off";
+        let b = document.getElementById(display.id + "-segment-b");
+        b.className = "segment-y segment-b segment-off";
+        let c = document.getElementById(display.id + "-segment-c");
+        c.className = "segment-y segment-c segment-off";
+        let d = document.getElementById(display.id + "-segment-d");
+        d.className = "segment-x segment-d segment-off";
+        let e = document.getElementById(display.id + "-segment-e");
+        e.className = "segment-y segment-e segment-off";
+        let f = document.getElementById(display.id + "-segment-f");
+        f.className = "segment-y segment-f segment-off";
+        let g = document.getElementById(display.id + "-segment-g");
+        g.className = "segment-x segment-g segment-off";
+    }
+
     if (window.currentTab === "task1") {
+        if (!checkConnections())
+            return;
         decoderTest("Input-0", "Input-1", "Input-2", "Input-3", "Output-4", "Output-5", "Output-6", "Output-7", "Output-8", "Output-9", "Output-10");
     }
     else if (window.currentTab === "task2") {
         displayTest("Input-0", "Input-1", "Input-2", "Input-3");
+    }
+
+    // Refresh the input bit values to default 1 and output bit values to default empty black circles after submitting
+    for (let gateId in gates) {
+        const gate = gates[gateId];
+        if (gate.isInput) {
+            gate.setOutput(true);
+            let element = document.getElementById(gate.id);
+            element.className = "high";
+            element.childNodes[0].innerHTML = "1";
+        }
+
+        if (gate.isOutput) {
+            gate.setOutput(null);
+            let element = document.getElementById(gate.id);
+            element.className = "output";
+            element.childNodes[0].innerHTML = "";
+        }
     }
 }
 window.submitCircuit = submitCircuit;
@@ -304,6 +370,12 @@ export function deleteElement(gateid) {
     for (let elem in gates) {
         if (gates[elem].inputs.includes(gate)) {
             gates[elem].removeInput(gate);
+        }
+
+        if (gates[elem].outputs.includes(gate)) {
+            gates[elem].removeOutput(gate);
+            if (gates[elem].isInput && gates[elem].outputs.length == 0)
+                gates[elem].setConnected(false);
         }
     }
     delete gates[gateid];

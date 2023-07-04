@@ -31,7 +31,7 @@ class Decoder {
             e: null,
             f: null,
             g: null
-        }
+        };
         this.inputPoints = [];
         this.outputPoints = [];
     }
@@ -143,17 +143,19 @@ function getResultDecoder() {
 function checkConnections() {
     const id = document.getElementById(decoder.id);
     if (decoder.aIn == null || decoder.bIn == null || decoder.cIn == null || decoder.dIn == null) {
-        printErrors("Input points of the Decoder are not connected properly\n",id);
+        printErrors("Input points of the Decoder are not connected properly\n", id);
         return false;
     }
     if (decoder.a == null || decoder.b == null || decoder.c == null || decoder.d == null || decoder.e == null || decoder.f == null || decoder.g == null) {
-        printErrors("Output points of the Decoder are not connected properly\n",id);
+        printErrors("Output points of the Decoder are not connected properly\n", id);
         return false;
     }
     for (let gateId in gates) {
         const gate = gates[gateId];
         if (gate.isInput) {
             if (!gate.isConnected) {
+                const input_id = document.getElementById(gate.id);
+                printErrors("Highlighted component not connected properly\n", input_id);
                 return false;
             }
         }
@@ -170,6 +172,17 @@ export function simulateDecoder() {
         return;
     }
 
+    // checking if input value is greater than 9
+    let A = decoder.aIn.output;
+    let B = decoder.bIn.output;
+    let C = decoder.cIn.output;
+    let D = decoder.dIn.output;
+
+    let input_val = D + (2 * C) + (4 * B) + (8 * A);
+    if (input_val > 9) {
+        printErrors("Input value is greater than 9. Please try with an input value less than or equal to 9.\n");
+        return;
+    }
 
     decoder.clearOutputs();
     display.clearInputs();
@@ -187,6 +200,13 @@ export function simulateDecoder() {
 
     // simulate display
     display.display();
+
+    // Displays message confirming Simulation completion
+    let message = "Simulation has finished";
+    const result = document.getElementById('result');
+    result.innerHTML += message;
+    result.className = "success-message";
+    setTimeout(clearResult, 2000);
 }
 
 
@@ -225,5 +245,5 @@ export function testSimulationDecoder(decoder, display) {
         e: e,
         f: f,
         g: g
-    }
+    };
 }
