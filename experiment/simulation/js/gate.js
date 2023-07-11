@@ -33,7 +33,7 @@ export class Gate {
     addInput(gate) {
         this.inputs.push(gate);
     }
-     addOutput(gate) {
+    addOutput(gate) {
         this.outputs.push(gate);
     }
     removeInput(gate) {
@@ -52,9 +52,9 @@ export class Gate {
         }
     }
     updatePosition(id) {
-        this.positionY = window.scrollY + document.getElementById(id).getBoundingClientRect().top // Y
+        this.positionY = window.scrollY + document.getElementById(id).getBoundingClientRect().top; // Y
 
-        this.positionX = window.scrollX + document.getElementById(id).getBoundingClientRect().left // X
+        this.positionX = window.scrollX + document.getElementById(id).getBoundingClientRect().left; // X
     }
     setName(name) {
         this.name = name;
@@ -97,7 +97,7 @@ export class Gate {
 
             el.addEventListener(
                 "contextmenu",
-                function (ev) {
+                function(ev) {
                     ev.preventDefault();
                     const origin = {
                         left: ev.pageX - document.getScroll()[0],
@@ -223,14 +223,13 @@ export function clearResult() {
     table_elem_head.innerHTML = "";
 }
 
-export function printErrors(message,objectId) {
+export function printErrors(message, objectId) {
     const result = document.getElementById('result');
     result.innerHTML += message;
     result.className = "failure-message";
-    if(objectId !== null)
-    {
-        objectId.classList.add("highlight")
-        setTimeout(function () {objectId.classList.remove("highlight")}, 5000);
+    if (objectId !== null) {
+        objectId.classList.add("highlight");
+        setTimeout(function() { objectId.classList.remove("highlight"); }, 5000);
     }
 }
 
@@ -240,10 +239,10 @@ export function checkConnections() {
         const gate = gates[gateId];
         const id = document.getElementById(gate.id);
         if (gate.inputPoints.length != gate.inputs.length) {
-            printErrors("Highlighted component not connected properly\n",id);
+            printErrors("Highlighted component not connected properly\n", id);
             return false;
-        } else if ((gate.isConnected === false || gate.outputs.length===0) && gate.isOutput === false) {
-            printErrors("Highlighted component not connected properly\n",id);
+        } else if ((gate.isConnected === false || gate.outputs.length === 0) && gate.isOutput === false) {
+            printErrors("Highlighted component not connected properly\n", id);
             return false;
         }
     }
@@ -315,36 +314,35 @@ export function testSimulation(gates) {
 // function to submit the desired circuit and get the final success or failure message
 export function submitCircuit() {
     clearResult();
-    
-        if(window.currentTab === "task2")
-        {
-            let a = document.getElementById(display.id+"-segment-a");
-            a.className = "segment-x segment-a segment-off";
-            let b = document.getElementById(display.id+"-segment-b");
-            b.className = "segment-y segment-b segment-off";
-            let c = document.getElementById(display.id+"-segment-c");
-            c.className = "segment-y segment-c segment-off";
-            let d = document.getElementById(display.id+"-segment-d");
-            d.className = "segment-x segment-d segment-off";
-            let e = document.getElementById(display.id+"-segment-e");
-            e.className = "segment-y segment-e segment-off";
-            let f = document.getElementById(display.id+"-segment-f");
-            f.className = "segment-y segment-f segment-off";
-            let g = document.getElementById(display.id+"-segment-g");
-            g.className = "segment-x segment-g segment-off";
-        }
+
+    if (window.currentTab === "task2") {
+        let a = document.getElementById(display.id + "-segment-a");
+        a.className = "segment-x segment-a segment-off";
+        let b = document.getElementById(display.id + "-segment-b");
+        b.className = "segment-y segment-b segment-off";
+        let c = document.getElementById(display.id + "-segment-c");
+        c.className = "segment-y segment-c segment-off";
+        let d = document.getElementById(display.id + "-segment-d");
+        d.className = "segment-x segment-d segment-off";
+        let e = document.getElementById(display.id + "-segment-e");
+        e.className = "segment-y segment-e segment-off";
+        let f = document.getElementById(display.id + "-segment-f");
+        f.className = "segment-y segment-f segment-off";
+        let g = document.getElementById(display.id + "-segment-g");
+        g.className = "segment-x segment-g segment-off";
+    }
 
     if (window.currentTab === "task1") {
-        if(!checkConnections())
-        return;
+        if (!checkConnections())
+            return;
         decoderTest("Input-0", "Input-1", "Input-2", "Input-3", "Output-4", "Output-5", "Output-6", "Output-7", "Output-8", "Output-9", "Output-10");
     }
     else if (window.currentTab === "task2") {
         displayTest("Input-0", "Input-1", "Input-2", "Input-3");
     }
-    
-     // Refresh the input bit values to default 1 and output bit values to default empty black circles after submitting
-      for (let gateId in gates) {
+
+    // Refresh the input bit values to default 1 and output bit values to default empty black circles after submitting
+    for (let gateId in gates) {
         const gate = gates[gateId];
         if (gate.isInput) {
             gate.setOutput(true);
@@ -353,7 +351,7 @@ export function submitCircuit() {
             element.childNodes[0].innerHTML = "1";
         }
 
-        if(gate.isOutput) {
+        if (gate.isOutput) {
             gate.setOutput(null);
             let element = document.getElementById(gate.id);
             element.className = "output";
@@ -374,11 +372,11 @@ export function deleteElement(gateid) {
             gates[elem].removeInput(gate);
         }
 
-        if(gates[elem].outputs.includes(gate)) {
+        if (gates[elem].outputs.includes(gate)) {
             gates[elem].removeOutput(gate);
-            if(gates[elem].isInput && gates[elem].outputs.length ==0)
-            gates[elem].setConnected(false);
-          }
+            if (gates[elem].isInput && gates[elem].outputs.length == 0)
+                gates[elem].setConnected(false);
+        }
     }
     delete gates[gateid];
 }
