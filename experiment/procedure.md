@@ -17,13 +17,13 @@
 * The values of a,b,c,d,e,f and g correspond to inputs A,B,C,D as described in the theory section.
 * If the circuit has been made as described as above, then upon clicking the "Submit" button a "Success" message will be displayed.
 ## EQUATIONS -
-a=A+C +BD + B'D'
-b=B' +C'D' +CD
-c=B + C'+ D
-d=B'D' +CD' + BC'D + B'C + A
-e = B'D' + CD'
-f=A + C'D' + BC' + BD'
-g=A + BC' +B'C + CD'
+* a=A+C +BD + B'D'
+* b=B' +C'D' +CD
+* c=B + C'+ D
+* d=B'D' +CD' + BC'D + B'C + A
+* e = B'D' + CD'
+* f=A + C'D' + BC' + BD'
+* g=A + BC' +B'C + CD'
 
   
 
