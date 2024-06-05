@@ -2,9 +2,9 @@
 
 ## Components Required - 
 
-* 5 NOT gates
-* 14 2-input NAND gates
-* 14 3-input NAND gates
+* 22 NOT gates
+* 10 2-input NAND gates
+* 23 3-input NAND gates
 
 ## Circuit Connections - 
 
