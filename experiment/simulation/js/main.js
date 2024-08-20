@@ -8,8 +8,8 @@ import { wireColours } from "./layout.js";
 let num_wires = 0;
 
 document.getScroll = function() {
-    if (window.pageYOffset != undefined) {
-        return [pageXOffset, pageYOffset];
+    if (window.scrollX != undefined) {
+        return [scrollX, scrollY];
     } else {
         let sx, sy, d = document,
             r = d.documentElement,
@@ -25,7 +25,7 @@ export const jsPlumbInstance = jsPlumbBrowserUI.newInstance({
     maxConnections: -1,
     endpoint: {
         type: "Dot",
-        options: { radius: 7 },
+        options: { radius: 5 },
     },
     dragOptions: {
         containment: "parentEnclosed",
@@ -649,10 +649,10 @@ export function init7Segment() {
     const types = ["Input", "Input", "Input", "Input"];
     const names = ["A", "B", "C", "D"];
     const positions = [
-        { x: 40, y: 130 },
-        { x: 40, y: 290 },
-        { x: 40, y: 450 },
-        { x: 40, y: 610 }
+        { x: 10, y: 130 },
+        { x: 10, y: 290 },
+        { x: 10, y: 450 },
+        { x: 10, y: 610 }
     ];
     for (let i = 0; i < ids.length; i++) {
         let gate = new gatejs.Gate(types[i]);
@@ -664,7 +664,7 @@ export function init7Segment() {
         gate.registerComponent("working-area", positions[i].x, positions[i].y);
     }
     decoderjs.addDecoder("working-area", 180, 175);
-    displayjs.createDisplay("working-area", 600, 175);
+    displayjs.createDisplay("working-area", 650, 100);
 }
 
 
@@ -676,6 +676,21 @@ export function refreshWorkingArea() {
     decoderjs.clearDecoder();
     displayjs.clearDisplay();
 }
+refresh.addEventListener("click", function (event) {
+    jsPlumbInstance.reset();
+    window.numComponents = 0;
+    gatejs.clearGates();
+    decoderjs.clearDecoder();
+    displayjs.clearDisplay();
+    if (window.currentTab === "task1") {
+        initDecoder();
+    } else if (window.currentTab === "task2") 
+        {
+            init7Segment();
+    }
+  
+    console.log(window.currentTab);
+  });
 
 
 
