@@ -2,7 +2,7 @@
 
 #### Circuit Diagram
 
-<img src="images/bcd_decoder.gif" alt="BCD to 7-Segment Decoder Circuit Diagram" style="width: 100%; max-width: 600px; margin: 10px 0;">
+<img src="images/bcd_decoder.png" alt="BCD to 7-Segment Decoder Circuit Diagram" style="width: 100%; max-width: 600px; margin: 10px 0;">
 
 _Figure 1: BCD to 7-Segment Decoder circuit diagram showing the complete combinational logic implementation using logic gates. Reference: Theory section_
 
@@ -19,7 +19,7 @@ _Figure 1: BCD to 7-Segment Decoder circuit diagram showing the complete combina
 3. Implement the Boolean expressions for each segment (a, b, c, d, e, f, g) using the required logic gates:
    - **Segment a**: a = A + C + BD + B'D'
    - **Segment b**: b = B' + C'D' + CD
-   - **Segment c**: c = B + C' + D
+   - **Segment c**: c = B + C' + Dy
    - **Segment d**: d = B'D' + CD' + BC'D + B'C + A
    - **Segment e**: e = B'D' + CD'
    - **Segment f**: f = A + C'D' + BC' + BD'
