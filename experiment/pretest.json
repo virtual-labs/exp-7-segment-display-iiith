@@ -4,17 +4,17 @@
     {
       "question": "1. What is the purpose of a 7-segment decoder?",
       "answers": {
-        "a": "To digitalise the numbers from 1 to 9",
+        "a": "To convert BCD input to 7-segment display control signals",
         "b": "To convert parallel input to serial input",
-        "c": "None",
-        "d": "Both of these"
+        "c": "To convert analog signals to digital signals",
+        "d": "To convert hexadecimal to binary"
       },
-      "correctAnswer": "c",
+      "correctAnswer": "a",
       "explanations": {
-        "c": "Correct. None of the given options accurately describes the purpose. A 7-segment decoder converts BCD (4-bit binary) input to display decimal digits 0-9 on a 7-segment display, not just 1-9, and it doesn't convert parallel to serial.",
-        "a": "Incorrect. It displays digits 0-9 (not just 1-9) and doesn't 'digitalise' but rather converts BCD to display format.",
-        "b": "Incorrect. A 7-segment decoder converts BCD input to segment control signals, not parallel to serial conversion.",
-        "d": "Incorrect. Neither option a nor b correctly describes the decoder's purpose."
+        "a": "Correct. A 7-segment decoder converts BCD (4-bit binary) input to 7-segment display control signals, enabling the display of decimal digits 0-9 by activating the appropriate segments.",
+        "b": "Incorrect. A 7-segment decoder does not perform parallel-to-serial conversion. It converts BCD input to segment control signals.",
+        "c": "Incorrect. Analog-to-digital conversion is performed by ADC circuits, not 7-segment decoders.",
+        "d": "Incorrect. A 7-segment decoder works with BCD input and segment outputs, not hexadecimal-to-binary conversion."
       },
       "difficulty": "beginner"
     },
