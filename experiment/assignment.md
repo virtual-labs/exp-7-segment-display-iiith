@@ -1,10 +1,7 @@
-1. Design the BCD to seven segment display decoder as given in the theory section. Save this circuit which takes four inputs D,C,B, A and produces 7 outputs a,b,c,d,e,f,g.
+1. Design the BCD to 7-segment decoder circuit as given in the theory section. The circuit should take 4 inputs (A, B, C, D) and produce 7 outputs (a, b, c, d, e, f, g) corresponding to the seven segments of the display.
 
-2. The Seven segment display designed above can display digits from 0 to 9. Now design a circuit which can display hexadecimal numbers 0-9 and A-F. Start by making K-maps for a,b,c,d,e,f,g and use seven 4:1 / 8:1 multiplexers, each generating one output.
-Save this circuit with appropriate name.
+2. Construct a complete BCD to 7-segment display interface system. Connect the decoder outputs to a 7-segment display unit and verify that BCD inputs 0000 to 1001 correctly display decimal digits 0 to 9 on the 7-segment display.
 
-3. A 4-bit ripple adder has been made in Experiment 1. It takes two 4-bit numbers A3A2A1A0 and B3B2B1B0 as inputs and generates their sum S3S2S1S0 and final carry C-out.
-Save the 4-bit ripple adder by marking appropriate inputs and outputs.
-Import the seven segment hexadecimal display designed in question 2.
-Import the 4 bit ripple adder.
-Connect the outputs S3S2S1S0 of ripple adder to the inputs ABCD of 7 segment hexadecimal display. Give two 4-bit binary numbers as inputs to ripple adder and see if their sum is being displayed by the seven segment hexadecimal display. 
+3. Design a hexadecimal to 7-segment decoder that can display all 16 hexadecimal digits (0-9, A-F). Analyze the K-maps for each segment (a, b, c, d, e, f, g) and implement the optimized Boolean expressions using logic gates.
+
+4. Can the BCD to 7-segment decoder be implemented using only NAND gates? If yes, explain the conversion process. If no, explain why other gates are necessary and provide an alternative implementation approach.

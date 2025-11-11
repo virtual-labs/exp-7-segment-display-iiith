@@ -1,59 +1,90 @@
 {
-    "version": 2.0,
-    "questions": [
-        {
-            "question": "1. What is the output of 7 segment decoder when 1000 is the input",
-            "answers": {
-                "a": "3",
-                "b": "7",
-                "c": "8",
-                "d": "5"
-            },
-            "correctAnswer": "c",
-            "explanations": {},
-            "difficulty": "beginner"
-        },
-        {
-            "question": "2. What is the binary coding of 5",
-            "answers": {
-                "a": "0101",
-                "b": "0111",
-                "c": "0001",
-                "d": "0010"
-            },
-            "correctAnswer": "a",
-            "explanations": {
-                
-            },
-            "difficulty": "intermediate"
-        },
-        {
-            "question": "3. Where do you see a 7 segment decoder",
-            "answers": {
-                "a": "automatic washing machine",
-                "b": "calculator",
-                "c": "microwave",
-                "d": "All of these"
-            },
-            "correctAnswer": "d",
-            "explanations": {
-               
-            },
-            "difficulty": "beginner"
-        },
-        {
-            "question": "4. How many bit combinations are wasted while making a 7 segment decoder",
-            "answers": {
-                "a": "7",
-                "b": "6",
-                "c": "4",
-                "d": "5"
-            },
-            "correctAnswer": "b",
-            "explanations": {
-                "b": "6 bit combinations are wasted while making a 7 segment decoder as digit zero to digit 9 are covered from 0000 to 1001 in binary. So, the remaining so remaining combinations = 1111 - 1001 = 15 - 9 = 6."
-            },
-            "difficulty": "advanced"
-        }
-    ]
+  "version": 2.0,
+  "questions": [
+    {
+      "question": "1. What is the output digit displayed when the BCD input 1000 is applied to a 7-segment decoder?",
+      "answers": {
+        "a": "3",
+        "b": "7",
+        "c": "8",
+        "d": "5"
+      },
+      "correctAnswer": "c",
+      "explanations": {
+        "c": "Correct. BCD input 1000 represents decimal 8 (1×2³ + 0×2² + 0×2¹ + 0×2⁰ = 8). The decoder will display digit '8' by activating all seven segments (a,b,c,d,e,f,g).",
+        "a": "Incorrect. BCD 1000 does not represent decimal 3. Decimal 3 would be represented by BCD 0011.",
+        "b": "Incorrect. BCD 1000 does not represent decimal 7. Decimal 7 would be represented by BCD 0111.",
+        "d": "Incorrect. BCD 1000 does not represent decimal 5. Decimal 5 would be represented by BCD 0101."
+      },
+      "difficulty": "beginner"
+    },
+    {
+      "question": "2. What is the 4-bit BCD representation of decimal 5?",
+      "answers": {
+        "a": "0101",
+        "b": "0111",
+        "c": "0001",
+        "d": "0010"
+      },
+      "correctAnswer": "a",
+      "explanations": {
+        "a": "Correct. Decimal 5 in BCD is 0101 (0×2³ + 1×2² + 0×2¹ + 1×2⁰ = 0 + 4 + 0 + 1 = 5).",
+        "b": "Incorrect. 0111 represents decimal 7, not 5.",
+        "c": "Incorrect. 0001 represents decimal 1, not 5.",
+        "d": "Incorrect. 0010 represents decimal 2, not 5."
+      },
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "3. In which of the following applications are 7-segment displays commonly used?",
+      "answers": {
+        "a": "Digital clocks and timers",
+        "b": "Electronic calculators",
+        "c": "Microwave oven displays",
+        "d": "All of these"
+      },
+      "correctAnswer": "d",
+      "explanations": {
+        "d": "Correct. 7-segment displays are widely used in digital clocks (time display), calculators (number display), microwave ovens (timer and power settings), and many other consumer electronics for numerical display.",
+        "a": "Incorrect. While digital clocks do use 7-segment displays, this is not the only application.",
+        "b": "Incorrect. While calculators do use 7-segment displays, this is not the only application.",
+        "c": "Incorrect. While microwave ovens do use 7-segment displays, this is not the only application."
+      },
+      "difficulty": "beginner"
+    },
+    {
+      "question": "4. How many 4-bit binary combinations are unused (don't care states) in a BCD to 7-segment decoder?",
+      "answers": {
+        "a": "7",
+        "b": "6",
+        "c": "4",
+        "d": "5"
+      },
+      "correctAnswer": "b",
+      "explanations": {
+        "b": "Correct. With 4 bits, there are 16 possible combinations (0000 to 1111). BCD uses only 10 combinations (0000 to 1001 for digits 0-9). Therefore, 16 - 10 = 6 combinations (1010 to 1111) are unused and treated as don't care states.",
+        "a": "Incorrect. 7 is not the correct number of unused combinations.",
+        "c": "Incorrect. 4 is not the correct number of unused combinations.",
+        "d": "Incorrect. 5 is not the correct number of unused combinations."
+      },
+      "difficulty": "advanced"
+    },
+    {
+      "question": "5. For displaying digit '6' on a 7-segment display, which segment remains OFF?",
+      "answers": {
+        "a": "Segment a (top)",
+        "b": "Segment b (top right)",
+        "c": "Segment g (middle)",
+        "d": "Segment e (bottom left)"
+      },
+      "correctAnswer": "b",
+      "explanations": {
+        "b": "Correct. To display digit '6', segments a, c, d, e, f, and g are ON, while only segment b (top right) remains OFF. This creates the characteristic shape of digit '6'.",
+        "a": "Incorrect. Segment a (top) is ON when displaying '6'.",
+        "c": "Incorrect. Segment g (middle) is ON when displaying '6'.",
+        "d": "Incorrect. Segment e (bottom left) is ON when displaying '6'."
+      },
+      "difficulty": "intermediate"
+    }
+  ]
 }
