@@ -142,41 +142,59 @@ function allDisappear() {
     }
 }
 
+// returns true if the inputs can be changed; a finished simulation is rewound so that new inputs can be tried
+function inputsEditable() {
+    if (timeline.progress() === 1) {
+        rewind();
+    }
+    if (timeline.progress() !== 0) {
+        observ.innerHTML = "Inputs cannot be changed while the simulation is running. Please click on Reset to change them.";
+        return false;
+    }
+    return true;
+}
+
+// colours the dot of every input as per the value of that input
+function inputDotColours() {
+    for (let i = 0; i < 4; i++) {
+        setter(textInput[i].textContent, dots[i]);
+    }
+}
+
+// sets all the inputs to 0 so that the simulation can be started right away
+function initInputs() {
+    textIOInit();
+    appendInputA();
+    appendInputB();
+    appendInputC();
+    appendInputD();
+}
+
+// toggles the value of an input bit between 0 and 1
+function toggleInput(index, coordinateX, coordinateY) {
+    if (!inputsEditable()) {
+        return;
+    }
+    if (textInput[index].textContent !== "0") {
+        changeto0(coordinateX, coordinateY, index, index);
+    }
+    else {
+        changeto1(coordinateX, coordinateY, index, index);
+    }
+    setter(textInput[index].textContent, dots[index]);
+}
+
 function appendInputA() {
-    if (textInput[0].textContent !== "0" && timeline.progress() === 0) {
-        changeto0(16, 24, 0, 0);
-    }
-    else if (textInput[0].textContent !== "1" && timeline.progress() === 0) {
-        changeto1(16, 24, 0, 0);
-    }
-    setter(textInput[0].textContent, dots[0]);
+    toggleInput(0, 16, 24);
 }
 function appendInputB() {
-    if (textInput[1].textContent !== "0" && timeline.progress() === 0) {
-        changeto0(16, 374, 1, 1);
-    }
-    else if (textInput[1].textContent !== "1" && timeline.progress() === 0) {
-        changeto1(16, 374, 1, 1);
-    }
-    setter(textInput[1].textContent, dots[1]);
+    toggleInput(1, 16, 374);
 }
 function appendInputC() {
-    if (textInput[2].textContent !== "0" && timeline.progress() === 0) {
-        changeto0(16, 414, 2, 2);
-    }
-    else if (textInput[2].textContent !== "1" && timeline.progress() === 0) {
-        changeto1(16, 414, 2, 2);
-    }
-    setter(textInput[2].textContent, dots[2]);
+    toggleInput(2, 16, 414);
 }
 function appendInputD() {
-    if (textInput[3].textContent !== "0" && timeline.progress() === 0) {
-        changeto0(16, 764, 3, 3);
-    }
-    else if (textInput[3].textContent !== "1" && timeline.progress() === 0) {
-        changeto1(16, 764, 3, 3);
-    }
-    setter(textInput[3].textContent, dots[3]);
+    toggleInput(3, 16, 764);
 }
 
 function changeto1(coordinateX, coordinateY, object, textObject) {
@@ -206,29 +224,40 @@ function partialDotDisappear() {
 
 
 
+// value of the BCD input (A is the most significant bit)
+function bcdValue() {
+    let value = 0;
+    for (let i = 0; i < 4; i++) {
+        value += parseInt(textInput[i].textContent) * Math.pow(2, 3 - i);
+    }
+    return value;
+}
+
 function outputSetter() {
     inputDotDisappear();
-    let ans = 0;
-    for (let i = 0; i < 4; i++) {
-        ans += parseInt(textInput[i].textContent) * Math.pow(2, 3 - i);
-    }
-    if (ans > 9) {
-        restartCircuit();
-        observ.innerHTML = "The value is greater than 9. Try with a value less than or equal to 9.";
-    }
-    else {
-        textOutput[0].textContent = ans;
-    }
+    textOutput[0].textContent = bcdValue();
 }
+
+// segments that are ON for the digits 0 to 9
+const DIGIT_SEGMENTS = ["abcdef", "bc", "abdeg", "abcdg", "bcfg", "acdfg", "acdefg", "abc", "abcdefg", "abcdfg"];
 
 function display() {
-    observ.innerHTML = "Simulation has finished. Please click on 'Reset' and repeat the instructions given to start again.";
+    decide = false;
+    status.innerHTML = "Start";
+    const value = bcdValue();
+    const bits = textInput.map(text => text.textContent).join("");
+    observ.innerHTML = `Simulation has finished.<br>BCD input ABCD = ${bits}, so the display shows the digit ${value}.<br>Segments ${DIGIT_SEGMENTS[value].split("").join(", ")} are ON.<br>Click on an input to change it and then click on Start to simulate again.`;
 }
 
-function reboot() {
-    for (const text of textInput) {
-        text.textContent = 2;
-    }
+// takes the timeline back to the beginning while keeping the selected input values
+function rewind() {
+    timeline.seek(0);
+    timeline.pause();
+    inputDotDisappear();
+    inputDotColours();
+    outputDisappear();
+    decide = false;
+    status.innerHTML = "Start";
 }
 
 function setter(value, component) {
@@ -241,8 +270,8 @@ function setter(value, component) {
 }
 
 function setSpeed(speed) {
+    timeline.timeScale(parseInt(speed));
     if (circuitStarted) {
-        timeline.timeScale(parseInt(speed));
         observ.innerHTML = `${speed}x speed`;
     }
 }
@@ -254,12 +283,12 @@ function restartCircuit() {
     timeline.seek(0);
     timeline.pause();
     allDisappear();
-    reboot();
-    clearObservation();
+    initInputs();
     decide = false;
     status.innerHTML = "Start";
     observ.innerHTML = "Successfully restored";
     speed.selectedIndex = 0;
+    timeline.timeScale(1);
 }
 
 function simulationStatus() {
@@ -276,32 +305,25 @@ function stopCircuit() {
         observ.innerHTML = "Simulation has been Paused. Please click on the 'Start' button to Resume.";
         decide = false;
         status.innerHTML = "Start";
-        speed.selectedIndex = 0;
-    }
-    else if (timeline.progress() === 1) {
-        observ.innerHTML = "Please Restart the simulation";
     }
 }
 function startCircuit() {
-    for (const text of textInput) {
-        if (text.textContent === "2") {
-            observ.innerHTML = "Please set the input values";
-            return;
-        }
+    if (timeline.progress() === 1) {
+        rewind();
+    }
+    if (bcdValue() > 9) {
+        observ.innerHTML = "The value is greater than 9. Set the inputs to a valid BCD digit (0000 to 1001) and click on Start again.";
+        return;
     }
     if (timeline.progress() !== 1) {
         if (!circuitStarted) {
             circuitStarted = true;
         }
         timeline.play();
-        timeline.timeScale(1);
+        timeline.timeScale(parseInt(speed.value));
         observ.innerHTML = "Simulation has started.";
         decide = true;
         status.innerHTML = "Pause";
-        speed.selectedIndex = 0;
-    }
-    else if (timeline.progress() === 1) {
-        observ.innerHTML = "Please Restart the simulation";
     }
 }
 
@@ -321,7 +343,6 @@ timeline.add(inputDotVisible, 0);
 timeline.add(partialDotDisappear, 10);
 timeline.add(outputSetter, 10);
 timeline.add(outputVisible, 10);
-timeline.eventCallback("onComplete", outputVisible);
 timeline.eventCallback("onComplete", display);
 
 timeline.to(dots[0], {
@@ -392,3 +413,4 @@ timeline.to(dots[3], {
 
 timeline.pause();
 inputDotDisappear();
+initInputs();

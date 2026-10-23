@@ -56,6 +56,91 @@ jsPlumbInstance.bind("connection", function (info) {
   }
 });
 
+// Removes a single occurrence of item from list
+function removeOne(list, item) {
+  const index = list.indexOf(item);
+  if (index !== -1) {
+    list.splice(index, 1);
+  }
+}
+
+// Returns the id of the label overlay of an endpoint
+function endpointLabel(endpoint) {
+  const keys = Object.keys(endpoint.overlays || {});
+  return keys.length > 0 ? keys[0] : "";
+}
+
+// Returns the component (gate, decoder or display) with the given id
+function findComponent(id) {
+  if (gatejs.gates[id]) {
+    return gatejs.gates[id];
+  }
+  if (decoderjs.decoder && decoderjs.decoder.id === id) {
+    return decoderjs.decoder;
+  }
+  if (displayjs.display && displayjs.display.id === id) {
+    return displayjs.display;
+  }
+  return null;
+}
+
+// Removes the link between the components of two endpoints from the circuit model
+function removeLink(connection, epA, epB) {
+  if (!epA || !epB || !epA.uuid || !epB.uuid) {
+    return;
+  }
+  let outEp = epA;
+  let inEp = epB;
+  if (epA.uuid.startsWith("input")) {
+    outEp = epB;
+    inEp = epA;
+  }
+  if (!outEp.uuid.startsWith("output") || !inEp.uuid.startsWith("input")) {
+    return;
+  }
+  const driver = findComponent(outEp.elementId);
+  const sink = findComponent(inEp.elementId);
+  if (!driver || !sink) {
+    return;
+  }
+
+  // input bits and gates: the driver is not connected any more if it has no other wire
+  if (driver.setConnected) {
+    const remaining = outEp.connections.filter((c) => c !== connection);
+    if (remaining.length === 0) {
+      driver.setConnected(false);
+    }
+  }
+  if (driver.outputs instanceof Array) {
+    removeOne(driver.outputs, sink);
+  }
+
+  if (sink === decoderjs.decoder) {
+    // BCD input of the decoder
+    const label = endpointLabel(inEp);
+    const input = ["A", "B", "C", "D"].find((l) => label.includes(l));
+    if (input) {
+      sink["set" + input](null);
+    }
+  } else if (sink === displayjs.display) {
+    // segment input of the display
+    const label = endpointLabel(outEp);
+    const segment = ["a", "b", "c", "d", "e", "f", "g"].find((l) =>
+      label.includes(l)
+    );
+    if (driver === decoderjs.decoder && segment) {
+      driver["set" + segment](null);
+    }
+  } else if (sink.inputs instanceof Array) {
+    removeOne(sink.inputs, driver);
+  }
+}
+
+// Keep the circuit model in sync when a wire is deleted
+jsPlumbInstance.bind("connection:detach", function (info) {
+  removeLink(info.connection, info.sourceEndpoint, info.targetEndpoint);
+});
+
 export const connectGate = function () {
   jsPlumbInstance.bind("beforeDrop", function (data) {
     const fromEndpoint = data.connection.endpoints[0];
@@ -798,10 +883,11 @@ export function updateInstructions(currentTab) {
             <li>Drag and drop components to move them around, connect them using wires by dragging your cursor from one endpoint to another.</li>
             <li>You can delete components by right clicking on them and selecting the delete option.</li>
             <li>You can delete wire connections by right clicking on them and selecting the delete option.</li>
-            <li>You can set the input bits, which are by default 1, to any values of your choice for testing, by double-clicking on them.</li>
+            <li>A single output point can drive several inputs: drag a new wire from an output point that is already connected to connect it to another gate.</li>
+            <li>You can set the input bits, which are by default 1, to any values of your choice for testing, by clicking on them. Each click toggles the bit between 1 and 0.</li>
             <li>Click on the "Simulate" button after setting the input bits as per your choice. This will simulate the circuit you built for the input bits set and will change the output bit values accordingly, for you to test your circuit.</li>
             <li>Click on the "Submit" button to submit the circuit once you think you have built the required circuit.</li>
-            <li>Clicking on 'Submit' will display a 'Success' or 'Failure' message in the Observations Section according to the correctness of your circuit. It will also display a Truth Table verifying your circuit for different input values.</li>
+            <li>Clicking on 'Submit' will display a 'Success' or 'Failure' message in the Observations Section according to the correctness of your circuit. It will also display a Truth Table verifying your circuit for the valid BCD inputs 0000 to 1001. The segment values for the invalid inputs 1010 to 1111 are don't cares (x), so they are not checked.</li>
         `;
   } else if (currentTab === "task2") {
     // 7-segment Display task - keep components section but empty, hide on small screens
@@ -824,7 +910,8 @@ export function updateInstructions(currentTab) {
             <li>Connect the input bits A, B, C, D to the corresponding inputs of the BCD decoder by dragging your cursor from one endpoint to another.</li>
             <li>Connect the decoder outputs (a, b, c, d, e, f, g) to the corresponding inputs of the 7-segment display.</li>
             <li>You can delete wire connections by right clicking on them and selecting the delete option.</li>
-            <li>You can set the input bits, which are by default 1, to any values of your choice for testing, by double-clicking on them.</li>
+            <li>You can set the input bits, which are by default 1, to any values of your choice for testing, by clicking on them. Each click toggles the bit between 1 and 0.</li>
+            <li>The default input 1111 is not a valid BCD digit. Set the input bits to a digit between 0000 and 1001 before clicking on the "Simulate" button.</li>
             <li>Click on the "Simulate" button after setting the input bits as per your choice. This will simulate the circuit and display the corresponding digit on the 7-segment display.</li>
             <li>Click on the "Submit" button to submit the circuit once you think you have made all the required connections.</li>
             <li>Clicking on 'Submit' will display a 'Success' or 'Failure' message in the Observations Section according to the correctness of your connections. It will also show how the display responds to different BCD inputs.</li>
@@ -1126,9 +1213,11 @@ window.changeTabs = function (event) {
   if (tabId === "task1") {
     connectGate();
     initDecoder();
+    window.simulate = gatejs.simulate;
   } else if (tabId === "task2") {
     connectDecoderDisplay();
     init7Segment();
+    window.simulate = decoderjs.simulateDecoder;
   }
 
   // Update instructions based on current tab

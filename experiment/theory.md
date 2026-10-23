@@ -2,7 +2,9 @@
 
 <img width="150px" src="images/7_segment_display_labeled.png"> <img src="images/7-segments_Indicator.gif">
 
-A BCD to 7-segment decoder is a combinational circuit that converts a 4-bit Binary Coded Decimal (BCD) input into the appropriate output signals to drive a 7-segment display device for displaying decimal digits 0 through 9. The decoder takes four input bits (A, B, C, D) representing BCD numbers and generates seven output signals (a, b, c, d, e, f, g) to control the individual segments of a 7-segment display.
+_The animation counts through all 16 values from 0 to F (hexadecimal). A BCD decoder only needs the digits 0 to 9._
+
+A BCD to 7-segment decoder is a combinational circuit that converts a 4-bit Binary Coded Decimal (BCD) input into the appropriate output signals to drive a 7-segment display device for displaying decimal digits 0 through 9. The decoder takes four input bits (A, B, C, D) representing BCD numbers and generates seven output signals (a, b, c, d, e, f, g) to control the individual segments of a 7-segment display. A is the most significant bit and D is the least significant bit, so the weights of A, B, C and D are 8, 4, 2 and 1 (for example, ABCD = 0101 is the digit 5).
 
 #### Understanding 7-Segment Display Structure
 
@@ -10,7 +12,7 @@ A 7-segment display consists of seven individual LED segments arranged in a figu
 
 **Key Features of 7-Segment Displays:**
 
-- Seven segments labeled **a, b, c, d, e, f, g** (lowercase for segment identification)
+- Seven segments labeled **a, b, c, d, e, f, g** (lowercase for segment identification). The figure above labels the segments with capital letters; in this experiment they are written in lowercase so that they are not confused with the inputs.
 - BCD inputs labeled **A, B, C, D** (uppercase for binary input signals)
 - Common-cathode or common-anode configurations available
 - Individual segment control enables digit formation
@@ -57,21 +59,33 @@ For better understanding, here's which segments remain OFF for each digit:
 
 #### Logic Equations
 
-Based on the truth table, the logic equations for each segment can be derived using Boolean algebra. These equations define when each segment should be activated:
+From the truth table, each segment is 1 for a set of BCD codes. Writing the codes as decimal numbers (minterms), with A as the most significant bit, the segment functions are:
 
-**Segment a**: a = A'B'C'D' + A'B'CD' + A'BCD + A'BCD' + AB'C'D' + AB'C'D
+- **Segment a**: a = Σm(0, 2, 3, 5, 6, 7, 8, 9)
+- **Segment b**: b = Σm(0, 1, 2, 3, 4, 7, 8, 9)
+- **Segment c**: c = Σm(0, 1, 3, 4, 5, 6, 7, 8, 9)
+- **Segment d**: d = Σm(0, 2, 3, 5, 6, 8, 9)
+- **Segment e**: e = Σm(0, 2, 6, 8)
+- **Segment f**: f = Σm(0, 4, 5, 6, 8, 9)
+- **Segment g**: g = Σm(2, 3, 4, 5, 6, 8, 9)
 
-**Segment b**: b = A'B'C'D + A'B'CD' + A'B'CD + A'BC'D' + A'BCD + AB'C'D' + AB'C'D
+The codes 1010 to 1111 (10 to 15) are not valid BCD digits and never occur, so the segment values for them are don't cares. Using these don't cares in K-maps gives simpler equations:
 
-**Segment c**: c = A'B'C'D + A'B'CD + A'BC'D' + A'BC'D + A'BCD' + A'BCD + AB'C'D' + AB'C'D
+**Segment a**: a = A + C + BD + B'D'
 
-**Segment d**: d = A'B'C'D' + A'B'CD + A'BC'D + A'BCD' + AB'C'D' + AB'C'D
+**Segment b**: b = B' + C'D' + CD
 
-**Segment e**: e = A'B'C'D' + A'B'C'D + A'B'CD + A'BC'D + AB'C'D' + AB'C'D
+**Segment c**: c = B + C' + D
 
-**Segment f**: f = A'B'C'D' + A'B'C'D + A'BC'D' + A'BC'D + A'BCD' + AB'C'D' + AB'C'D
+**Segment d**: d = A + B'D' + B'C + CD' + BC'D
 
-**Segment g**: g = A'B'CD + A'BC'D' + A'BC'D + A'BCD' + A'BCD + AB'C'D' + AB'C'D
+**Segment e**: e = B'D' + CD'
+
+**Segment f**: f = A + BC' + BD' + C'D'
+
+**Segment g**: g = A + BC' + B'C + CD'
+
+Here ' denotes the complement (NOT), a product is an AND and + is an OR. Note that B'D' + BD is the XNOR of B and D, and C'D' + CD is the XNOR of C and D, so these terms can be built with a single XNOR gate. Different choices for the don't cares give different, equally valid circuits: they all produce the same segment patterns for the digits 0 to 9, and differ only for the invalid codes.
 
 #### Key Features
 
@@ -98,7 +112,7 @@ Based on the truth table, the logic equations for each segment can be derived us
 The most straightforward approach uses individual logic gates to implement the Boolean equations for each segment. This method requires:
 
 - Multiple AND, OR, and NOT gates
-- Seven separate logic circuits (one per segment)
+- Seven logic circuits (one per segment), which can share NOT gates and common product terms
 - Direct mapping from truth table to hardware
 
 #### ROM-Based Implementation
