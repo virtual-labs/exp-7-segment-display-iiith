@@ -39,14 +39,16 @@
                     <div class="v-collapsible is-size-5">Instructions</div>
                     <div class="v-content" style="text-align: left; padding-left: 10%; padding-right: 10%;">
                         <ul style="list-style: disc;">
-                            <li><b>Start</b>- Starts the simulation after the inputs are properly selected. Default
-                                speed is 1x.</li>
-                            <li>Select the speed through dropdown menu</li>
-                            <li>The default speed is reset to x1 automatically at the beginning of every simulation or
-                                whenever you pause and resume. If you want to change the speed, you can do so only while
-                                the simulation is running (only after starting or after resuming the simulation).</li>
-                            <li><b>Reset</b> - Resets the simulation</li>
-                            <li>Click on the green input bits to set their values.</li>
+                            <li>The BCD input bits A, B, C and D start at 0 (A is the most significant bit). Click on an
+                                input bit to toggle its value between 0 and 1.</li>
+                            <li>Only the BCD codes 0000 to 1001 (digits 0 to 9) are valid. If a larger value is set, the
+                                simulation does not start and a message is shown.</li>
+                            <li><b>Start</b> - Starts the simulation for the selected inputs. While it runs, the same
+                                button pauses and resumes it.</li>
+                            <li>Select the speed (1x, 2x or 4x) from the dropdown menu, before or during the simulation.</li>
+                            <li>When the simulation finishes, the decoded digit is shown. Change the inputs and click on
+                                <b>Start</b> again to try another digit.</li>
+                            <li><b>Reset</b> - Resets the simulation and sets all the inputs back to 0.</li>
                         </ul>
                     </div>
                 </div>
