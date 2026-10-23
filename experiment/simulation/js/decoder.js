@@ -1,4 +1,4 @@
-import { clearResult, gates, printErrors } from './gate.js';
+import { clearMessage, gates, printErrors, showTimedMessage } from './gate.js';
 import { registerGate } from "./main.js";
 import { display } from './display.js';
 
@@ -167,7 +167,7 @@ function checkConnections() {
 }
 
 export function simulateDecoder() {
-    clearResult();
+    clearMessage();
     if (!checkConnections()) {
         return;
     }
@@ -178,9 +178,9 @@ export function simulateDecoder() {
     let C = decoder.cIn.output;
     let D = decoder.dIn.output;
 
-    let input_val = D + (2 * C) + (4 * B) + (8 * A);
+    let input_val = (D ? 1 : 0) + (2 * (C ? 1 : 0)) + (4 * (B ? 1 : 0)) + (8 * (A ? 1 : 0));
     if (input_val > 9) {
-        printErrors("Input value is greater than 9. Please try with an input value less than or equal to 9.\n");
+        printErrors("Input value is greater than 9. Set the input bits to a valid BCD digit (0000 to 1001) and simulate again.\n", null);
         return;
     }
 
@@ -202,11 +202,7 @@ export function simulateDecoder() {
     display.display();
 
     // Displays message confirming Simulation completion
-    let message = "Simulation has finished";
-    const result = document.getElementById('result');
-    result.innerHTML += message;
-    result.className = "success-message";
-    setTimeout(clearResult, 2000);
+    showTimedMessage("Simulation has finished");
 }
 
 

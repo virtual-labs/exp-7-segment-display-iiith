@@ -109,6 +109,13 @@ class Display {
         }
     }
 
+    // switches all the segments off
+    turnOff() {
+        for (let segment in this.inputs) {
+            switchOffSegment(this.id, segment);
+        }
+    }
+
     clearInputs() {
         this.inputs.a = null;
         this.inputs.b = null;
